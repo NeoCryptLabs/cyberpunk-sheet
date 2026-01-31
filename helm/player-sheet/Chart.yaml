@@ -5,8 +5,5 @@ type: application
 version: 0.1.0
 appVersion: "0.1.0"
 
-dependencies:
-  - name: mongodb
-    version: "14.x.x"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: mongodb.enabled
+# MongoDB is deployed via our own StatefulSet template (templates/mongodb-statefulset.yaml)
+# No external chart dependency needed
