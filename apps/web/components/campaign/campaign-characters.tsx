@@ -51,8 +51,9 @@ export function CampaignCharacters({ campaignId }: CampaignCharactersProps) {
 }
 
 function CharacterCard({ character }: { character: CampaignCharacter }) {
-  const hpPercent = (character.hitPoints.current / character.hitPoints.max) * 100;
-  const humPercent = (character.humanity.current / character.humanity.max) * 100;
+  const hpPercent = (character.currentHitPoints / character.maxHitPoints) * 100;
+  const maxHumanity = character.stats.empathy * 10;
+  const humPercent = (character.humanity / maxHumanity) * 100;
 
   return (
     <Link
@@ -67,9 +68,9 @@ function CharacterCard({ character }: { character: CampaignCharacter }) {
       <div className="flex items-start gap-4">
         {/* Avatar */}
         <div className="w-16 h-16 rounded-lg bg-cyber-dark-800 border border-cyber-dark-600 overflow-hidden flex-shrink-0 relative">
-          {character.imageUrl ? (
+          {character.portraitUrl ? (
             <Image
-              src={character.imageUrl}
+              src={character.portraitUrl}
               alt={character.handle}
               fill
               className="object-cover"
@@ -95,7 +96,7 @@ function CharacterCard({ character }: { character: CampaignCharacter }) {
               <div className="flex justify-between text-xs mb-1">
                 <span className="text-cyber-dark-500">HP</span>
                 <span className="text-neon-cyan-400">
-                  {character.hitPoints.current}/{character.hitPoints.max}
+                  {character.currentHitPoints}/{character.maxHitPoints}
                 </span>
               </div>
               <div className="h-1.5 bg-cyber-dark-800 rounded-full overflow-hidden">
@@ -110,7 +111,7 @@ function CharacterCard({ character }: { character: CampaignCharacter }) {
               <div className="flex justify-between text-xs mb-1">
                 <span className="text-cyber-dark-500">HUM</span>
                 <span className="text-neon-violet-400">
-                  {character.humanity.current}/{character.humanity.max}
+                  {character.humanity}/{maxHumanity}
                 </span>
               </div>
               <div className="h-1.5 bg-cyber-dark-800 rounded-full overflow-hidden">

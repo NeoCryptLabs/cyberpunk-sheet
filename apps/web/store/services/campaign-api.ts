@@ -45,20 +45,21 @@ export interface CampaignCharacter {
   handle: string;
   role: string;
   stats: {
-    int: number;
-    ref: number;
-    dex: number;
-    tech: number;
+    intelligence: number;
+    reflexes: number;
+    dexterity: number;
+    technology: number;
     cool: number;
-    will: number;
+    willpower: number;
     luck: number;
     move: number;
     body: number;
-    emp: number;
+    empathy: number;
   };
-  hitPoints: { current: number; max: number };
-  humanity: { current: number; max: number };
-  imageUrl?: string;
+  maxHitPoints: number;
+  currentHitPoints: number;
+  humanity: number;
+  portraitUrl?: string;
 }
 
 const CAMPAIGN_FRAGMENT = gql`
@@ -290,26 +291,21 @@ export const campaignApi = api.injectEndpoints({
               handle
               role
               stats {
-                int
-                ref
-                dex
-                tech
+                intelligence
+                reflexes
+                dexterity
+                technology
                 cool
-                will
+                willpower
                 luck
                 move
                 body
-                emp
+                empathy
               }
-              hitPoints {
-                current
-                max
-              }
-              humanity {
-                current
-                max
-              }
-              imageUrl
+              maxHitPoints
+              currentHitPoints
+              humanity
+              portraitUrl
             }
           }
         `,
