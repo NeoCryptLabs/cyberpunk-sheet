@@ -166,6 +166,11 @@ NEXT_PUBLIC_AUTH_ENABLED=true
 - Ajout de fonctionnalités non prévues
 - Suppressions majeures de code existant
 
+### Règle de transparence
+- **Toujours expliquer pourquoi** je fais une modification, même mineure
+- Si je modifie du code existant, j'explique le raisonnement avant ou au moment de le faire
+- Ne pas faire de modifications "bonus" sans les justifier
+
 ## Commands
 
 ```bash
