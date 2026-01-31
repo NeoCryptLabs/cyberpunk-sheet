@@ -34,16 +34,14 @@ spec:
             - name: PORT
               value: "{{ .Values.api.port }}"
           livenessProbe:
-            httpGet:
-              path: /graphql?query=%7B__typename%7D
+            tcpSocket:
               port: http
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
-            httpGet:
-              path: /graphql?query=%7B__typename%7D
+            tcpSocket:
               port: http
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 5
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
