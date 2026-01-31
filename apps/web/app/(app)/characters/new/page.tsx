@@ -36,16 +36,16 @@ const ROLES = [
 ] as const;
 
 const ROLE_ABILITIES: Record<string, string> = {
-  SOLO: 'Combat Awareness',
+  SOLO: 'Conscience du combat',
   NETRUNNER: 'Interface',
-  TECH: 'Maker',
-  MEDTECH: 'Medicine',
-  MEDIA: 'Credibility',
-  EXEC: 'Teamwork',
-  LAWMAN: 'Backup',
-  FIXER: 'Operator',
+  TECH: 'Fabricant',
+  MEDTECH: 'Médecine',
+  MEDIA: 'Crédibilité',
+  EXEC: 'Travail d\'équipe',
+  LAWMAN: 'Renforts',
+  FIXER: 'Opérateur',
   NOMAD: 'Moto',
-  ROCKERBOY: 'Charismatic Impact',
+  ROCKERBOY: 'Impact charismatique',
 };
 
 const STATS = [

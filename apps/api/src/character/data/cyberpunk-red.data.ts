@@ -1,62 +1,62 @@
 /**
  * Cyberpunk Red Core Data
- * Reference data for character creation and validation
+ * Données de référence pour la création et validation de personnages
  */
 
 // ============================================
-// SKILLS - All 66 skills from Cyberpunk Red
+// COMPÉTENCES - Les 66 compétences de Cyberpunk Red
 // ============================================
 
 export const SKILLS_BY_STAT = {
   INT: [
-    'Accounting',
-    'Animal Handling',
-    'Bureaucracy',
+    'Comptabilité',
+    'Dressage',
+    'Bureaucratie',
     'Business',
     'Composition',
-    'Criminology',
-    'Cryptography',
-    'Deduction',
-    'Education',
-    'Gamble',
-    'Language',
-    'Library Search',
-    'Local Expert',
+    'Criminologie',
+    'Cryptographie',
+    'Déduction',
+    'Éducation',
+    'Jeu',
+    'Langue',
+    'Recherche documentaire',
+    'Expert local',
     'Science',
-    'Tactics',
-    'Wilderness Survival',
+    'Tactique',
+    'Survie en milieu naturel',
   ],
   REF: [
-    'Archery',
-    'Autofire',
-    'Brawling',
-    'Evasion',
-    'Handgun',
-    'Heavy Weapons',
-    'Martial Arts',
-    'Melee Weapon',
-    'Shoulder Arms',
+    'Archerie',
+    'Tir automatique',
+    'Bagarre',
+    'Esquive',
+    'Arme de poing',
+    'Arme lourde',
+    'Arts martiaux',
+    'Arme de mêlée',
+    'Arme d\'épaule',
   ],
-  DEX: ['Athletics', 'Contortionist', 'Dance', 'Driving', 'Pilot Air Vehicle', 'Pilot Sea Vehicle', 'Riding', 'Stealth'],
+  DEX: ['Athlétisme', 'Contorsion', 'Danse', 'Conduite', 'Pilotage aérien', 'Pilotage maritime', 'Équitation', 'Discrétion'],
   TECH: [
-    'Air Vehicle Tech',
-    'Basic Tech',
-    'Cybertech',
-    'Demolitions',
-    'Electronics/Security Tech',
-    'First Aid',
-    'Forgery',
-    'Land Vehicle Tech',
-    'Paint/Draw/Sculpt',
-    'Paramedic',
-    'Photography/Film',
-    'Pick Lock',
-    'Pick Pocket',
-    'Sea Vehicle Tech',
-    'Weaponstech',
+    'Mécanique aérienne',
+    'Technique de base',
+    'Cybertechnique',
+    'Démolition',
+    'Électronique/Sécurité',
+    'Premiers secours',
+    'Falsification',
+    'Mécanique terrestre',
+    'Art visuel',
+    'Paramédical',
+    'Photo/Vidéo',
+    'Crochetage',
+    'Pickpocket',
+    'Mécanique navale',
+    'Armurerie',
   ],
-  COOL: ['Acting', 'Bribery', 'Conversation', 'Human Perception', 'Interrogation', 'Persuasion', 'Personal Grooming', 'Streetwise', 'Trading', 'Wardrobe & Style'],
-  WILL: ['Concentration', 'Endurance', 'Resist Torture/Drugs'],
+  COOL: ['Comédie', 'Corruption', 'Conversation', 'Perception humaine', 'Interrogatoire', 'Persuasion', 'Soin personnel', 'Connaissance de la rue', 'Négociation', 'Style vestimentaire'],
+  WILL: ['Concentration', 'Endurance', 'Résistance torture/drogues'],
   EMP: ['Perception'],
 } as const;
 
@@ -65,255 +65,255 @@ export const ALL_SKILLS = Object.entries(SKILLS_BY_STAT).flatMap(([stat, skills]
 );
 
 // ============================================
-// ROLE ABILITIES
+// CAPACITÉS DE RÔLE
 // ============================================
 
 export const ROLE_ABILITIES = {
   SOLO: {
-    name: 'Combat Awareness',
+    name: 'Conscience du combat',
     description:
-      'Add Combat Awareness rank to Initiative. At rank 4+, add to ranged attack rolls. At rank 6+, add to damage. At rank 8+, choose Precision Attack or Threat Detection.',
+      'Ajoute le rang de Conscience du combat à l\'Initiative. Au rang 4+, ajoute aux jets d\'attaque à distance. Au rang 6+, ajoute aux dégâts. Au rang 8+, choisissez Attaque de précision ou Détection de menaces.',
   },
   NETRUNNER: {
     name: 'Interface',
     description:
-      'Access the NET using cyberdeck. Make Netrunning actions: Jack In/Out, Activate Program, Scanner, Backdoor, Cloak, Control, Eye-Dee, Pathfinder, Slide, Virus, Zap.',
+      'Accède au NET via un cyberdeck. Actions de Netrunning : Jack In/Out, Activer programme, Scanner, Porte dérobée, Camouflage, Contrôle, Identification, Éclaireur, Glissement, Virus, Zap.',
   },
   TECH: {
-    name: 'Maker',
+    name: 'Fabricant',
     description:
-      'Fabricate items, upgrades, and invent new gadgets. Field Expertise allows quick repairs. Upgrade Expertise adds modifications. Invention Expertise creates new items.',
+      'Fabrique des objets, améliorations et invente de nouveaux gadgets. Expertise de terrain pour réparations rapides. Expertise d\'amélioration pour modifications. Expertise d\'invention pour créer de nouveaux objets.',
   },
   MEDTECH: {
-    name: 'Medicine',
+    name: 'Médecine',
     description:
-      'Specialize in Surgery (install cyberware, treat critical injuries), Pharmaceuticals (create drugs), or Cryosystem Operation (cryo tanks for healing/preservation).',
-    specializations: ['Surgery', 'Pharmaceuticals', 'Cryosystem Operation'],
+      'Spécialisation en Chirurgie (installer cyberware, soigner blessures critiques), Pharmacologie (créer des drogues), ou Opération cryogénique (tanks cryo pour guérison/préservation).',
+    specializations: ['Chirurgie', 'Pharmacologie', 'Opération cryogénique'],
   },
   MEDIA: {
-    name: 'Credibility',
+    name: 'Crédibilité',
     description:
-      'Influence public opinion. Credibility determines your reach and impact. Can expose secrets, rally support, or destroy reputations.',
+      'Influence l\'opinion publique. La crédibilité détermine votre portée et impact. Peut exposer des secrets, rallier du soutien ou détruire des réputations.',
   },
   EXEC: {
-    name: 'Teamwork',
+    name: 'Travail d\'équipe',
     description:
-      'Lead a corporate team. Team members have skills that can assist you. Higher rank = bigger team, better skills, more loyalty.',
+      'Dirige une équipe corporatiste. Les membres ont des compétences utiles. Rang plus élevé = équipe plus grande, meilleures compétences, plus de loyauté.',
   },
   LAWMAN: {
-    name: 'Backup',
+    name: 'Renforts',
     description:
-      'Call for police/security backup. Higher rank = more officers, better equipped, faster response. Usable within jurisdiction.',
+      'Appelle des renforts police/sécurité. Rang plus élevé = plus d\'agents, mieux équipés, réponse plus rapide. Utilisable dans sa juridiction.',
   },
   FIXER: {
-    name: 'Operator',
+    name: 'Opérateur',
     description:
-      'Access black market, find rare items, make connections. Higher rank = better prices, rarer items, more reliable contacts.',
+      'Accès au marché noir, trouve des objets rares, établit des connexions. Rang plus élevé = meilleurs prix, objets plus rares, contacts plus fiables.',
   },
   NOMAD: {
     name: 'Moto',
     description:
-      'Access to clan vehicles. Higher rank = more vehicles, better armed/armored, larger transport capacity.',
+      'Accès aux véhicules du clan. Rang plus élevé = plus de véhicules, mieux armés/blindés, plus grande capacité de transport.',
   },
   ROCKERBOY: {
-    name: 'Charismatic Impact',
+    name: 'Impact charismatique',
     description:
-      'Influence fans and crowds through performance. Can inspire action, calm riots, or incite rebellion. Higher rank = larger influence.',
+      'Influence les fans et les foules par la performance. Peut inspirer l\'action, calmer les émeutes ou inciter à la rébellion. Rang plus élevé = influence plus grande.',
   },
 } as const;
 
 // ============================================
-// CYBERWARE - Common examples
+// CYBERWARE - Exemples courants
 // ============================================
 
 export const FOUNDATIONAL_CYBERWARE = [
-  { name: 'Neural Link', type: 'NEURALWARE', cost: 500, humanityLoss: 7, optionSlots: 5, installation: 'CLINIC' },
-  { name: 'Cyberaudio Suite', type: 'CYBERAUDIO', cost: 500, humanityLoss: 7, optionSlots: 3, installation: 'CLINIC' },
-  { name: 'Cybereye', type: 'CYBEROPTICS', cost: 100, humanityLoss: 7, optionSlots: 3, installation: 'CLINIC' },
-  { name: 'Cyberarm', type: 'CYBERARM', cost: 500, humanityLoss: 7, optionSlots: 4, installation: 'HOSPITAL' },
-  { name: 'Cyberleg', type: 'CYBERLEG', cost: 500, humanityLoss: 7, optionSlots: 3, installation: 'HOSPITAL' },
+  { name: 'Lien neural', type: 'NEURALWARE', cost: 500, humanityLoss: 7, optionSlots: 5, installation: 'CLINIC' },
+  { name: 'Suite cyberaudio', type: 'CYBERAUDIO', cost: 500, humanityLoss: 7, optionSlots: 3, installation: 'CLINIC' },
+  { name: 'Cyberoeil', type: 'CYBEROPTICS', cost: 100, humanityLoss: 7, optionSlots: 3, installation: 'CLINIC' },
+  { name: 'Cyberbras', type: 'CYBERARM', cost: 500, humanityLoss: 7, optionSlots: 4, installation: 'HOSPITAL' },
+  { name: 'Cyberjambe', type: 'CYBERLEG', cost: 500, humanityLoss: 7, optionSlots: 3, installation: 'HOSPITAL' },
 ] as const;
 
 export const CYBERWARE_OPTIONS = {
   NEURALWARE: [
-    { name: 'Braindance Recorder', cost: 500, humanityLoss: 0 },
-    { name: 'Chipware Socket', cost: 500, humanityLoss: 7 },
-    { name: 'Interface Plugs', cost: 500, humanityLoss: 7 },
+    { name: 'Enregistreur braindance', cost: 500, humanityLoss: 0 },
+    { name: 'Socket à puces', cost: 500, humanityLoss: 7 },
+    { name: 'Prises d\'interface', cost: 500, humanityLoss: 7 },
     { name: 'Kerenzikov', cost: 500, humanityLoss: 14 },
     { name: 'Sandevistan', cost: 500, humanityLoss: 14 },
-    { name: 'Chemical Analyzer', cost: 500, humanityLoss: 0 },
-    { name: 'Pain Editor', cost: 1000, humanityLoss: 14 },
+    { name: 'Analyseur chimique', cost: 500, humanityLoss: 0 },
+    { name: 'Éditeur de douleur', cost: 1000, humanityLoss: 14 },
   ],
   CYBEROPTICS: [
-    { name: 'Anti-Dazzle', cost: 100, humanityLoss: 0 },
+    { name: 'Anti-éblouissement', cost: 100, humanityLoss: 0 },
     { name: 'Chyron', cost: 100, humanityLoss: 0 },
-    { name: 'Color Shift', cost: 100, humanityLoss: 0 },
-    { name: 'Dartgun', cost: 500, humanityLoss: 2 },
-    { name: 'Image Enhance', cost: 500, humanityLoss: 0 },
-    { name: 'Low Light/IR/UV', cost: 500, humanityLoss: 0 },
-    { name: 'MicroOptics', cost: 500, humanityLoss: 0 },
-    { name: 'Targeting Scope', cost: 500, humanityLoss: 0 },
-    { name: 'TeleOptics', cost: 500, humanityLoss: 0 },
-    { name: 'Virtuality', cost: 100, humanityLoss: 0 },
+    { name: 'Changement de couleur', cost: 100, humanityLoss: 0 },
+    { name: 'Pistolet à fléchettes', cost: 500, humanityLoss: 2 },
+    { name: 'Amélioration d\'image', cost: 500, humanityLoss: 0 },
+    { name: 'Vision nocturne/IR/UV', cost: 500, humanityLoss: 0 },
+    { name: 'MicroOptique', cost: 500, humanityLoss: 0 },
+    { name: 'Viseur de ciblage', cost: 500, humanityLoss: 0 },
+    { name: 'TéléOptique', cost: 500, humanityLoss: 0 },
+    { name: 'Virtualité', cost: 100, humanityLoss: 0 },
   ],
   CYBERAUDIO: [
-    { name: 'Amplified Hearing', cost: 100, humanityLoss: 0 },
-    { name: 'Audio Recorder', cost: 100, humanityLoss: 0 },
-    { name: 'Bug Detector', cost: 100, humanityLoss: 0 },
-    { name: 'Homing Tracer', cost: 100, humanityLoss: 0 },
-    { name: 'Internal Agent', cost: 100, humanityLoss: 0 },
-    { name: 'Level Damper', cost: 100, humanityLoss: 0 },
-    { name: 'Radio Communicator', cost: 100, humanityLoss: 0 },
-    { name: 'Radar Detector', cost: 500, humanityLoss: 0 },
-    { name: 'Scrambler/Descrambler', cost: 100, humanityLoss: 0 },
-    { name: 'Voice Stress Analyzer', cost: 100, humanityLoss: 0 },
+    { name: 'Audition amplifiée', cost: 100, humanityLoss: 0 },
+    { name: 'Enregistreur audio', cost: 100, humanityLoss: 0 },
+    { name: 'Détecteur de micros', cost: 100, humanityLoss: 0 },
+    { name: 'Traceur', cost: 100, humanityLoss: 0 },
+    { name: 'Agent interne', cost: 100, humanityLoss: 0 },
+    { name: 'Limiteur de niveau', cost: 100, humanityLoss: 0 },
+    { name: 'Radio communicateur', cost: 100, humanityLoss: 0 },
+    { name: 'Détecteur radar', cost: 500, humanityLoss: 0 },
+    { name: 'Brouilleur/Débrouilleur', cost: 100, humanityLoss: 0 },
+    { name: 'Analyseur vocal', cost: 100, humanityLoss: 0 },
   ],
   CYBERARM: [
-    { name: 'Big Knucks', cost: 100, humanityLoss: 3 },
+    { name: 'Gros poings', cost: 100, humanityLoss: 3 },
     { name: 'Cyberdeck', cost: 500, humanityLoss: 0 },
-    { name: 'Grapple Hand', cost: 100, humanityLoss: 3 },
-    { name: 'Medscanner', cost: 500, humanityLoss: 0 },
-    { name: 'Popup Grenade Launcher', cost: 500, humanityLoss: 7 },
-    { name: 'Popup Melee Weapon', cost: 500, humanityLoss: 7 },
-    { name: 'Popup Ranged Weapon', cost: 500, humanityLoss: 7 },
-    { name: 'Quick Change Mount', cost: 100, humanityLoss: 0 },
-    { name: 'Rippers', cost: 500, humanityLoss: 7 },
-    { name: 'Scratchers', cost: 100, humanityLoss: 3 },
-    { name: 'Shoulder Cam', cost: 500, humanityLoss: 0 },
-    { name: 'Slice N Dice', cost: 500, humanityLoss: 7 },
-    { name: 'Subdermal Grip', cost: 100, humanityLoss: 3 },
-    { name: 'Techscanner', cost: 500, humanityLoss: 0 },
-    { name: 'Tool Hand', cost: 100, humanityLoss: 0 },
+    { name: 'Main grappin', cost: 100, humanityLoss: 3 },
+    { name: 'Scanner médical', cost: 500, humanityLoss: 0 },
+    { name: 'Lance-grenades rétractable', cost: 500, humanityLoss: 7 },
+    { name: 'Arme de mêlée rétractable', cost: 500, humanityLoss: 7 },
+    { name: 'Arme à distance rétractable', cost: 500, humanityLoss: 7 },
+    { name: 'Montage changement rapide', cost: 100, humanityLoss: 0 },
+    { name: 'Griffes', cost: 500, humanityLoss: 7 },
+    { name: 'Égratigneurs', cost: 100, humanityLoss: 3 },
+    { name: 'Caméra d\'épaule', cost: 500, humanityLoss: 0 },
+    { name: 'Lame tranchante', cost: 500, humanityLoss: 7 },
+    { name: 'Poignée sous-dermique', cost: 100, humanityLoss: 3 },
+    { name: 'Scanner technique', cost: 500, humanityLoss: 0 },
+    { name: 'Main outil', cost: 100, humanityLoss: 0 },
     { name: 'Wolvers', cost: 500, humanityLoss: 7 },
   ],
   INTERNAL_BODY: [
     { name: 'AudioVox', cost: 500, humanityLoss: 3 },
-    { name: 'Contraceptive Implant', cost: 10, humanityLoss: 0 },
-    { name: 'Cybersnake', cost: 1000, humanityLoss: 14 },
-    { name: 'Gills', cost: 1000, humanityLoss: 7 },
-    { name: 'Grafted Muscle and Bone Lace', cost: 1000, humanityLoss: 14 },
-    { name: 'Independent Air Supply', cost: 1000, humanityLoss: 2 },
+    { name: 'Implant contraceptif', cost: 10, humanityLoss: 0 },
+    { name: 'Cyberserpent', cost: 1000, humanityLoss: 14 },
+    { name: 'Branchies', cost: 1000, humanityLoss: 7 },
+    { name: 'Muscles et os greffés', cost: 1000, humanityLoss: 14 },
+    { name: 'Réserve d\'air indépendante', cost: 1000, humanityLoss: 2 },
     { name: 'Mr. Studd/Midnight Lady', cost: 100, humanityLoss: 7 },
-    { name: 'Nasal Filters', cost: 100, humanityLoss: 0 },
-    { name: 'Radar/Sonar Implant', cost: 1000, humanityLoss: 7 },
-    { name: 'Toxin Binders', cost: 100, humanityLoss: 0 },
+    { name: 'Filtres nasaux', cost: 100, humanityLoss: 0 },
+    { name: 'Implant radar/sonar', cost: 1000, humanityLoss: 7 },
+    { name: 'Liants à toxines', cost: 100, humanityLoss: 0 },
     { name: 'Vampyres', cost: 500, humanityLoss: 14 },
   ],
   EXTERNAL_BODY: [
-    { name: 'Hidden Holster', cost: 500, humanityLoss: 0 },
-    { name: 'Skin Weave', cost: 500, humanityLoss: 7 },
-    { name: 'Subdermal Armor', cost: 1000, humanityLoss: 14 },
-    { name: 'Subdermal Pocket', cost: 100, humanityLoss: 3 },
-    { name: 'Superchrome Covers', cost: 1000, humanityLoss: 14 },
+    { name: 'Holster caché', cost: 500, humanityLoss: 0 },
+    { name: 'Trame cutanée', cost: 500, humanityLoss: 7 },
+    { name: 'Armure sous-dermique', cost: 1000, humanityLoss: 14 },
+    { name: 'Poche sous-dermique', cost: 100, humanityLoss: 3 },
+    { name: 'Revêtement superchrome', cost: 1000, humanityLoss: 14 },
   ],
   FASHIONWARE: [
-    { name: 'Biomonitor', cost: 100, humanityLoss: 0 },
-    { name: 'Chemskin', cost: 100, humanityLoss: 0 },
-    { name: 'EMP Threading', cost: 10, humanityLoss: 0 },
-    { name: 'Light Tattoo', cost: 100, humanityLoss: 0 },
-    { name: 'Shift Tacts', cost: 100, humanityLoss: 0 },
-    { name: 'Skinwatch', cost: 100, humanityLoss: 0 },
-    { name: 'Techhair', cost: 100, humanityLoss: 0 },
+    { name: 'Biomoniteur', cost: 100, humanityLoss: 0 },
+    { name: 'Peau chimique', cost: 100, humanityLoss: 0 },
+    { name: 'Filaments EMP', cost: 10, humanityLoss: 0 },
+    { name: 'Tatouage lumineux', cost: 100, humanityLoss: 0 },
+    { name: 'Lentilles changeantes', cost: 100, humanityLoss: 0 },
+    { name: 'Montre cutanée', cost: 100, humanityLoss: 0 },
+    { name: 'Cheveux tech', cost: 100, humanityLoss: 0 },
   ],
 } as const;
 
 // ============================================
-// WEAPONS - Common examples
+// ARMES - Exemples courants
 // ============================================
 
 export const WEAPONS = {
   MELEE: [
-    { name: 'Light Melee Weapon', damage: '1d6', rof: 2, skill: 'Melee Weapon', concealable: true },
-    { name: 'Medium Melee Weapon', damage: '2d6', rof: 2, skill: 'Melee Weapon', concealable: false },
-    { name: 'Heavy Melee Weapon', damage: '3d6', rof: 2, skill: 'Melee Weapon', concealable: false, handsRequired: 2 },
-    { name: 'Very Heavy Melee Weapon', damage: '4d6', rof: 1, skill: 'Melee Weapon', concealable: false, handsRequired: 2 },
+    { name: 'Arme de mêlée légère', damage: '1d6', rof: 2, skill: 'Arme de mêlée', concealable: true },
+    { name: 'Arme de mêlée moyenne', damage: '2d6', rof: 2, skill: 'Arme de mêlée', concealable: false },
+    { name: 'Arme de mêlée lourde', damage: '3d6', rof: 2, skill: 'Arme de mêlée', concealable: false, handsRequired: 2 },
+    { name: 'Arme de mêlée très lourde', damage: '4d6', rof: 1, skill: 'Arme de mêlée', concealable: false, handsRequired: 2 },
   ],
   RANGED: [
-    { name: 'Medium Pistol', damage: '2d6', rof: 2, magazine: 12, skill: 'Handgun', concealable: true },
-    { name: 'Heavy Pistol', damage: '3d6', rof: 2, magazine: 8, skill: 'Handgun', concealable: true },
-    { name: 'Very Heavy Pistol', damage: '4d6', rof: 1, magazine: 8, skill: 'Handgun', concealable: false },
-    { name: 'SMG', damage: '2d6', rof: 1, magazine: 30, skill: 'Autofire', concealable: true },
-    { name: 'Heavy SMG', damage: '3d6', rof: 1, magazine: 40, skill: 'Autofire', concealable: false },
-    { name: 'Assault Rifle', damage: '5d6', rof: 1, magazine: 25, skill: 'Shoulder Arms', concealable: false, handsRequired: 2 },
-    { name: 'Shotgun', damage: '5d6', rof: 1, magazine: 4, skill: 'Shoulder Arms', concealable: false, handsRequired: 2 },
-    { name: 'Sniper Rifle', damage: '5d6', rof: 1, magazine: 4, skill: 'Shoulder Arms', concealable: false, handsRequired: 2 },
-    { name: 'Bow', damage: '4d6', rof: 1, magazine: 1, skill: 'Archery', concealable: false, handsRequired: 2 },
-    { name: 'Crossbow', damage: '4d6', rof: 1, magazine: 1, skill: 'Archery', concealable: false, handsRequired: 2 },
+    { name: 'Pistolet moyen', damage: '2d6', rof: 2, magazine: 12, skill: 'Arme de poing', concealable: true },
+    { name: 'Pistolet lourd', damage: '3d6', rof: 2, magazine: 8, skill: 'Arme de poing', concealable: true },
+    { name: 'Pistolet très lourd', damage: '4d6', rof: 1, magazine: 8, skill: 'Arme de poing', concealable: false },
+    { name: 'Mitraillette', damage: '2d6', rof: 1, magazine: 30, skill: 'Tir automatique', concealable: true },
+    { name: 'Mitraillette lourde', damage: '3d6', rof: 1, magazine: 40, skill: 'Tir automatique', concealable: false },
+    { name: 'Fusil d\'assaut', damage: '5d6', rof: 1, magazine: 25, skill: 'Arme d\'épaule', concealable: false, handsRequired: 2 },
+    { name: 'Fusil à pompe', damage: '5d6', rof: 1, magazine: 4, skill: 'Arme d\'épaule', concealable: false, handsRequired: 2 },
+    { name: 'Fusil de précision', damage: '5d6', rof: 1, magazine: 4, skill: 'Arme d\'épaule', concealable: false, handsRequired: 2 },
+    { name: 'Arc', damage: '4d6', rof: 1, magazine: 1, skill: 'Archerie', concealable: false, handsRequired: 2 },
+    { name: 'Arbalète', damage: '4d6', rof: 1, magazine: 1, skill: 'Archerie', concealable: false, handsRequired: 2 },
   ],
   EXOTIC: [
-    { name: 'Grenade Launcher', damage: '6d6', rof: 1, magazine: 2, skill: 'Heavy Weapons', concealable: false, handsRequired: 2 },
-    { name: 'Rocket Launcher', damage: '8d6', rof: 1, magazine: 1, skill: 'Heavy Weapons', concealable: false, handsRequired: 2 },
+    { name: 'Lance-grenades', damage: '6d6', rof: 1, magazine: 2, skill: 'Arme lourde', concealable: false, handsRequired: 2 },
+    { name: 'Lance-roquettes', damage: '8d6', rof: 1, magazine: 1, skill: 'Arme lourde', concealable: false, handsRequired: 2 },
   ],
 } as const;
 
 // ============================================
-// ARMOR - Common examples
+// ARMURES - Exemples courants
 // ============================================
 
 export const ARMOR = {
   BODY: [
-    { name: 'Leathers', stoppingPower: 4, penalty: 0 },
+    { name: 'Cuir', stoppingPower: 4, penalty: 0 },
     { name: 'Kevlar', stoppingPower: 7, penalty: 0 },
-    { name: 'Light Armorjack', stoppingPower: 11, penalty: 0 },
-    { name: 'Medium Armorjack', stoppingPower: 12, penalty: -2 },
-    { name: 'Heavy Armorjack', stoppingPower: 13, penalty: -2 },
-    { name: 'Flak', stoppingPower: 15, penalty: -4 },
+    { name: 'Veste blindée légère', stoppingPower: 11, penalty: 0 },
+    { name: 'Veste blindée moyenne', stoppingPower: 12, penalty: -2 },
+    { name: 'Veste blindée lourde', stoppingPower: 13, penalty: -2 },
+    { name: 'Gilet pare-éclats', stoppingPower: 15, penalty: -4 },
     { name: 'Metalgear', stoppingPower: 18, penalty: -4 },
   ],
   HEAD: [
-    { name: 'Helmet (Light)', stoppingPower: 11, penalty: 0 },
-    { name: 'Helmet (Heavy)', stoppingPower: 13, penalty: -2 },
-    { name: 'Flak Helmet', stoppingPower: 15, penalty: -4 },
-    { name: 'Metalgear Helmet', stoppingPower: 18, penalty: -4 },
+    { name: 'Casque léger', stoppingPower: 11, penalty: 0 },
+    { name: 'Casque lourd', stoppingPower: 13, penalty: -2 },
+    { name: 'Casque pare-éclats', stoppingPower: 15, penalty: -4 },
+    { name: 'Casque metalgear', stoppingPower: 18, penalty: -4 },
   ],
   SHIELD: [
-    { name: 'Bulletproof Shield', stoppingPower: 10, penalty: 0 },
-    { name: 'Corpse Shield', stoppingPower: 20, penalty: -2 },
+    { name: 'Bouclier pare-balles', stoppingPower: 10, penalty: 0 },
+    { name: 'Bouclier corporel', stoppingPower: 20, penalty: -2 },
   ],
 } as const;
 
 // ============================================
-// STARTING STATS RANGES
+// LIMITES DE STATISTIQUES
 // ============================================
 
 export const STAT_LIMITS = {
   MIN: 2,
   MAX: 8,
-  TOTAL_POINTS: 62, // For standard character creation
+  TOTAL_POINTS: 62, // Pour création de personnage standard
 } as const;
 
 export const SKILL_LIMITS = {
   MIN: 0,
   MAX: 10,
-  STARTING_POINTS: 86, // For Streetrat template
+  STARTING_POINTS: 86, // Pour template Streetrat
 } as const;
 
 // ============================================
-// CULTURAL ORIGINS (Lifepath)
+// ORIGINES CULTURELLES (Lifepath)
 // ============================================
 
 export const CULTURAL_ORIGINS = [
-  'North American',
-  'South/Central American',
-  'Western European',
-  'Eastern European',
-  'Middle Eastern/North African',
-  'Sub-Saharan African',
-  'South Asian',
-  'Southeast Asian',
-  'East Asian',
-  'Oceanian/Pacific Islander',
+  'Nord-Américain',
+  'Sud/Centre-Américain',
+  'Europe de l\'Ouest',
+  'Europe de l\'Est',
+  'Moyen-Orient/Afrique du Nord',
+  'Afrique subsaharienne',
+  'Asie du Sud',
+  'Asie du Sud-Est',
+  'Asie de l\'Est',
+  'Océanie/Îles du Pacifique',
 ] as const;
 
 export const LANGUAGES_BY_ORIGIN = {
-  'North American': ['English', 'Spanish'],
-  'South/Central American': ['Spanish', 'Portuguese'],
-  'Western European': ['English', 'French', 'German', 'Italian', 'Spanish'],
-  'Eastern European': ['Russian', 'Polish', 'Ukrainian'],
-  'Middle Eastern/North African': ['Arabic', 'Hebrew', 'Farsi', 'Turkish'],
-  'Sub-Saharan African': ['Swahili', 'French', 'Arabic'],
-  'South Asian': ['Hindi', 'Urdu', 'Bengali', 'Tamil'],
-  'Southeast Asian': ['Vietnamese', 'Thai', 'Filipino', 'Indonesian'],
-  'East Asian': ['Chinese', 'Japanese', 'Korean'],
-  'Oceanian/Pacific Islander': ['English', 'Tagalog'],
+  'Nord-Américain': ['Anglais', 'Espagnol'],
+  'Sud/Centre-Américain': ['Espagnol', 'Portugais'],
+  'Europe de l\'Ouest': ['Anglais', 'Français', 'Allemand', 'Italien', 'Espagnol'],
+  'Europe de l\'Est': ['Russe', 'Polonais', 'Ukrainien'],
+  'Moyen-Orient/Afrique du Nord': ['Arabe', 'Hébreu', 'Persan', 'Turc'],
+  'Afrique subsaharienne': ['Swahili', 'Français', 'Arabe'],
+  'Asie du Sud': ['Hindi', 'Ourdou', 'Bengali', 'Tamoul'],
+  'Asie du Sud-Est': ['Vietnamien', 'Thaï', 'Filipino', 'Indonésien'],
+  'Asie de l\'Est': ['Chinois', 'Japonais', 'Coréen'],
+  'Océanie/Îles du Pacifique': ['Anglais', 'Tagalog'],
 } as const;
