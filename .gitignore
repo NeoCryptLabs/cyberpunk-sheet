@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Environment files (use .env.stub as template)
+.env
+.env.local
+.env.*.local
+!.env.stub
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated
+packages/graphql/src/generated/
+
+# Kubernetes secrets (local)
+helm/player-sheet/secrets/
+*.sealed.yaml
+
+# Docker
+.docker/

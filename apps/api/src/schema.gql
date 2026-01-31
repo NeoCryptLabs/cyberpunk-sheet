@@ -1,0 +1,443 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Armor {
+  name: String!
+  penalty: Int
+  stoppingPower: Int!
+  type: ArmorType!
+}
+
+input ArmorInput {
+  name: String!
+  penalty: Int
+  stoppingPower: Int!
+  type: ArmorType!
+}
+
+enum ArmorType {
+  BODY
+  HEAD
+  SHIELD
+}
+
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+type Campaign {
+  _id: ID!
+  characterIds: [String!]!
+  createdAt: DateTime!
+  currentSession: Int!
+  description: String
+  gameMasterId: String!
+  imageUrl: String
+  isActive: Boolean!
+  journalEntries: [JournalEntry!]!
+  name: String!
+  playerIds: [String!]!
+  updatedAt: DateTime!
+}
+
+type Character {
+  _id: ID!
+  armor: [Armor!]!
+  createdAt: DateTime!
+  currentHitPoints: Int!
+  currentLuck: Int!
+  cyberware: [Cyberware!]!
+  deathSave: Int!
+  eurodollars: Int!
+  handle: String!
+  humanity: Int!
+  improvementPoints: Int!
+  inventory: [InventoryItem!]!
+  level: Int!
+  lifepath: Lifepath
+  maxHitPoints: Int!
+  notes: String
+  portraitUrl: String
+  realName: String
+  role: Role!
+  roleAbility: RoleAbility!
+  seriouslyWoundedThreshold: Int!
+  skills: [Skill!]!
+  stats: Stats!
+  updatedAt: DateTime!
+  userId: String!
+  weapons: [Weapon!]!
+}
+
+input CreateCampaignInput {
+  description: String
+  imageUrl: String
+  name: String!
+}
+
+input CreateCharacterInput {
+  armor: [ArmorInput!]
+  cyberware: [CyberwareInput!]
+  eurodollars: Int
+  handle: String!
+  inventory: [InventoryItemInput!]
+  lifepath: LifepathInput
+  notes: String
+  portraitUrl: String
+  realName: String
+  role: Role!
+  roleAbility: RoleAbilityInput!
+  skills: [SkillInput!]
+  stats: StatsInput!
+  weapons: [WeaponInput!]
+}
+
+input CreateJournalEntryInput {
+  campaignId: ID!
+  content: String!
+  district: String
+  imageUrl: String
+  locationType: String
+  npcAttitude: String
+  npcLocation: String
+  npcRole: String
+  questGiver: String
+  questReward: Int
+  questStatus: String
+  sessionDate: DateTime
+  sessionNumber: Int
+  tags: [String!]
+  title: String!
+  type: JournalEntryType!
+}
+
+type Cyberware {
+  cost: Int!
+  description: String!
+  foundational: Boolean
+  humanityLoss: Int!
+  installation: InstallationType!
+  name: String!
+  optionSlots: Int
+  type: CyberwareType!
+}
+
+input CyberwareInput {
+  cost: Int!
+  description: String!
+  foundational: Boolean
+  humanityLoss: Int!
+  installation: InstallationType!
+  name: String!
+  optionSlots: Int
+  type: CyberwareType!
+}
+
+enum CyberwareType {
+  BORGWARE
+  CYBERARM
+  CYBERAUDIO
+  CYBERLEG
+  CYBEROPTICS
+  EXTERNAL_BODY
+  FASHIONWARE
+  INTERNAL_BODY
+  NEURALWARE
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum InstallationType {
+  CLINIC
+  HOSPITAL
+  MALL
+}
+
+type InventoryItem {
+  category: String
+  cost: Int
+  description: String
+  name: String!
+  quantity: Int!
+}
+
+input InventoryItemInput {
+  category: String
+  cost: Int
+  description: String
+  name: String!
+  quantity: Int!
+}
+
+type JournalEntry {
+  _id: ID!
+  content: String!
+  createdAt: DateTime!
+  district: String
+  imageUrl: String
+  locationType: String
+  npcAttitude: String
+  npcLocation: String
+  npcRole: String
+  questGiver: String
+  questReward: Int
+  questStatus: String
+  sessionDate: DateTime
+  sessionNumber: Int
+  tags: [String!]!
+  title: String!
+  type: JournalEntryType!
+  updatedAt: DateTime!
+}
+
+enum JournalEntryType {
+  LOCATION
+  LOOT
+  NOTE
+  NPC
+  QUEST
+  SESSION
+}
+
+type Lifepath {
+  childhoodEnvironment: String
+  clothingStyle: String
+  culturalOrigin: String
+  enemies: [String!]
+  familyBackground: String
+  familyCrisis: String
+  feelingsAboutPeople: String
+  friends: [String!]
+  hairstyle: String
+  lifeGoals: [String!]
+  personality: String
+  romanticInvolvements: [String!]
+  valueMost: String
+  valuedPerson: String
+  valuedPossession: String
+}
+
+input LifepathInput {
+  childhoodEnvironment: String
+  clothingStyle: String
+  culturalOrigin: String
+  enemies: [String!]
+  familyBackground: String
+  familyCrisis: String
+  feelingsAboutPeople: String
+  friends: [String!]
+  hairstyle: String
+  lifeGoals: [String!]
+  personality: String
+  romanticInvolvements: [String!]
+  valueMost: String
+  valuedPerson: String
+  valuedPossession: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  addJournalEntry(input: CreateJournalEntryInput!): Campaign!
+  createCampaign(input: CreateCampaignInput!): Campaign!
+  createCharacter(input: CreateCharacterInput!): Character!
+  deleteCampaign(id: ID!): Boolean!
+  deleteCharacter(id: ID!): Boolean!
+  deleteJournalEntry(campaignId: ID!, entryId: ID!): Campaign!
+  healCharacter(amount: Int!, id: ID!): Character!
+  login(input: LoginInput!): AuthPayload!
+  logout: Boolean!
+  refreshTokens(refreshToken: String!): TokenPayload!
+  register(input: RegisterInput!): AuthPayload!
+  restoreLuck(id: ID!): Character!
+  spendLuck(amount: Int!, id: ID!): Character!
+  takeDamage(damage: Int!, id: ID!): Character!
+  updateCampaign(input: UpdateCampaignInput!): Campaign!
+  updateCharacter(input: UpdateCharacterInput!): Character!
+  updateJournalEntry(input: UpdateJournalEntryInput!): Campaign!
+}
+
+type Query {
+  campaign(id: ID!): Campaign!
+  character(id: ID!): Character!
+  journalEntriesByType(campaignId: ID!, type: JournalEntryType!): [JournalEntry!]!
+  me: User!
+  myCampaigns: [Campaign!]!
+  myCharacters: [Character!]!
+  searchJournalEntries(campaignId: ID!, query: String!): [JournalEntry!]!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+enum Role {
+  EXEC
+  FIXER
+  LAWMAN
+  MEDIA
+  MEDTECH
+  NETRUNNER
+  NOMAD
+  ROCKERBOY
+  SOLO
+  TECH
+}
+
+type RoleAbility {
+  description: String
+  name: String!
+  rank: Int!
+  specializations: [String!]
+}
+
+input RoleAbilityInput {
+  description: String
+  name: String!
+  rank: Int!
+  specializations: [String!]
+}
+
+type Skill {
+  ipSpent: Int
+  level: Int!
+  linkedStat: String!
+  name: String!
+}
+
+input SkillInput {
+  ipSpent: Int
+  level: Int!
+  linkedStat: String!
+  name: String!
+}
+
+type Stats {
+  body: Int!
+  cool: Int!
+  dexterity: Int!
+  empathy: Int!
+  intelligence: Int!
+  luck: Int!
+  move: Int!
+  reflexes: Int!
+  technology: Int!
+  willpower: Int!
+}
+
+input StatsInput {
+  body: Int!
+  cool: Int!
+  dexterity: Int!
+  empathy: Int!
+  intelligence: Int!
+  luck: Int!
+  move: Int!
+  reflexes: Int!
+  technology: Int!
+  willpower: Int!
+}
+
+type TokenPayload {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input UpdateCampaignInput {
+  characterIds: [String!]
+  currentSession: Int
+  description: String
+  id: ID!
+  imageUrl: String
+  isActive: Boolean
+  name: String
+  playerIds: [String!]
+}
+
+input UpdateCharacterInput {
+  armor: [ArmorInput!]
+  currentHitPoints: Int
+  currentLuck: Int
+  cyberware: [CyberwareInput!]
+  eurodollars: Int
+  handle: String
+  id: ID!
+  improvementPoints: Int
+  inventory: [InventoryItemInput!]
+  lifepath: LifepathInput
+  notes: String
+  portraitUrl: String
+  realName: String
+  role: Role
+  roleAbility: RoleAbilityInput
+  skills: [SkillInput!]
+  stats: StatsInput
+  weapons: [WeaponInput!]
+}
+
+input UpdateJournalEntryInput {
+  campaignId: ID
+  content: String
+  district: String
+  entryId: ID!
+  imageUrl: String
+  locationType: String
+  npcAttitude: String
+  npcLocation: String
+  npcRole: String
+  questGiver: String
+  questReward: Int
+  questStatus: String
+  sessionDate: DateTime
+  sessionNumber: Int
+  tags: [String!]
+  title: String
+  type: JournalEntryType
+}
+
+type User {
+  _id: ID!
+  createdAt: DateTime!
+  email: String!
+  updatedAt: DateTime!
+  username: String!
+}
+
+type Weapon {
+  concealable: Boolean
+  damage: String!
+  handsRequired: Int
+  magazine: Int
+  name: String!
+  rof: Int!
+  skill: String
+  type: WeaponType!
+}
+
+input WeaponInput {
+  concealable: Boolean
+  damage: String!
+  handsRequired: Int
+  magazine: Int
+  name: String!
+  rof: Int!
+  skill: String
+  type: WeaponType!
+}
+
+enum WeaponType {
+  EXOTIC
+  MELEE
+  RANGED
+}

@@ -1,0 +1,34 @@
+{
+  "name": "player-sheet",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cyberpunk Red campaign management app",
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "dev:api": "pnpm --filter @player-sheet/api dev",
+    "dev:web": "pnpm --filter @player-sheet/web dev",
+    "build": "pnpm run --parallel build",
+    "build:api": "pnpm --filter @player-sheet/api build",
+    "build:web": "pnpm --filter @player-sheet/web build",
+    "test": "pnpm run --parallel test",
+    "test:api": "pnpm --filter @player-sheet/api test",
+    "test:web": "pnpm --filter @player-sheet/web test",
+    "lint": "pnpm run --parallel lint",
+    "codegen": "pnpm --filter @player-sheet/graphql codegen",
+    "env:setup": "node scripts/env-setup.js",
+    "clean": "pnpm run --parallel clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

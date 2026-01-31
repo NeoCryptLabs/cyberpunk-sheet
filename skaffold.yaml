@@ -1,0 +1,73 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: player-sheet
+
+build:
+  artifacts:
+    - image: player-sheet-api
+      context: .
+      docker:
+        dockerfile: apps/api/Dockerfile
+      sync:
+        manual:
+          - src: 'apps/api/src/**/*.ts'
+            dest: /app/apps/api/src
+    - image: player-sheet-web
+      context: .
+      docker:
+        dockerfile: apps/web/Dockerfile
+      sync:
+        manual:
+          - src: 'apps/web/app/**/*'
+            dest: /app/apps/web/app
+          - src: 'apps/web/components/**/*'
+            dest: /app/apps/web/components
+
+deploy:
+  helm:
+    releases:
+      - name: player-sheet
+        chartPath: helm/player-sheet
+        valuesFiles:
+          - helm/player-sheet/values-dev.yaml
+        setValues:
+          api.image: player-sheet-api
+          web.image: player-sheet-web
+
+profiles:
+  - name: dev
+    activation:
+      - command: dev
+    build:
+      local:
+        push: false
+    deploy:
+      helm:
+        releases:
+          - name: player-sheet
+            chartPath: helm/player-sheet
+            valuesFiles:
+              - helm/player-sheet/values-dev.yaml
+
+  - name: prod
+    build:
+      local:
+        push: true
+    deploy:
+      helm:
+        releases:
+          - name: player-sheet
+            chartPath: helm/player-sheet
+            valuesFiles:
+              - helm/player-sheet/values-prod.yaml
+
+portForward:
+  - resourceType: service
+    resourceName: player-sheet-api
+    port: 4000
+    localPort: 4000
+  - resourceType: service
+    resourceName: player-sheet-web
+    port: 3000
+    localPort: 3000

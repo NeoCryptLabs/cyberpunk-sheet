@@ -1,0 +1,53 @@
+# Development values
+
+api:
+  replicas: 1
+  env:
+    NODE_ENV: development
+    CORS_ORIGIN: "http://localhost:3000"
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+web:
+  replicas: 1
+  env:
+    NODE_ENV: development
+    NEXT_PUBLIC_API_URL: "http://localhost:4000/graphql"
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+mongodb:
+  enabled: true
+  auth:
+    enabled: true
+    rootPassword: "devpassword123"
+    database: player-sheet
+  persistence:
+    enabled: false  # Use emptyDir for dev
+
+ingress:
+  enabled: true
+  hosts:
+    - host: localhost
+      paths:
+        - path: /
+          pathType: Prefix
+          service: web
+        - path: /graphql
+          pathType: Prefix
+          service: api
+
+secrets:
+  jwtSecret: "dev-jwt-secret-change-in-production-32chars"
+  jwtRefreshSecret: "dev-refresh-secret-change-in-production"
+  mongodbRootPassword: "devpassword123"

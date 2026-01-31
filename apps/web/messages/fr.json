@@ -1,0 +1,207 @@
+{
+  "app": {
+    "name": "Player Sheet",
+    "description": "Gestionnaire de campagne Cyberpunk Red"
+  },
+  "nav": {
+    "home": "Accueil",
+    "characters": "Personnages",
+    "campaigns": "Campagnes",
+    "journal": "Journal",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "username": "Nom d'utilisateur",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire",
+    "errors": {
+      "invalidCredentials": "Email ou mot de passe incorrect",
+      "emailExists": "Cet email est déjà utilisé",
+      "weakPassword": "Le mot de passe doit contenir au moins 8 caractères"
+    }
+  },
+  "character": {
+    "title": "Mes personnages",
+    "create": "Créer un personnage",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view": "Voir la fiche",
+    "handle": "Handle",
+    "realName": "Nom réel",
+    "role": "Rôle",
+    "level": "Niveau",
+    "stats": {
+      "title": "Statistiques",
+      "int": "INT",
+      "ref": "REF",
+      "dex": "DEX",
+      "tech": "TECH",
+      "cool": "COOL",
+      "will": "WILL",
+      "luck": "LUCK",
+      "move": "MOVE",
+      "body": "BODY",
+      "emp": "EMP"
+    },
+    "derived": {
+      "hp": "Points de vie",
+      "currentHp": "PV actuels",
+      "maxHp": "PV max",
+      "seriouslyWounded": "Gravement blessé",
+      "deathSave": "Jet de mort",
+      "humanity": "Humanité"
+    },
+    "skills": {
+      "title": "Compétences",
+      "level": "Niveau",
+      "total": "Total"
+    },
+    "cyberware": {
+      "title": "Cyberware",
+      "add": "Ajouter du cyberware",
+      "type": "Type",
+      "humanityLoss": "Perte d'humanité",
+      "cost": "Coût",
+      "slots": "Emplacements"
+    },
+    "weapons": {
+      "title": "Armes",
+      "add": "Ajouter une arme",
+      "damage": "Dégâts",
+      "rof": "Cadence",
+      "magazine": "Chargeur"
+    },
+    "armor": {
+      "title": "Armure",
+      "add": "Ajouter une armure",
+      "sp": "PA",
+      "penalty": "Pénalité"
+    },
+    "inventory": {
+      "title": "Inventaire",
+      "add": "Ajouter un objet",
+      "quantity": "Quantité"
+    },
+    "money": {
+      "title": "Argent",
+      "eurodollars": "Eurodollars"
+    },
+    "roleAbility": {
+      "title": "Capacité de rôle",
+      "rank": "Rang"
+    },
+    "lifepath": {
+      "title": "Lifepath",
+      "culturalOrigin": "Origine culturelle",
+      "personality": "Personnalité",
+      "clothingStyle": "Style vestimentaire",
+      "hairstyle": "Coiffure",
+      "valueMost": "Ce que tu valorises le plus",
+      "feelingsAboutPeople": "Sentiments envers les gens",
+      "valuedPerson": "Personne importante",
+      "valuedPossession": "Possession chérie",
+      "familyBackground": "Contexte familial",
+      "childhoodEnvironment": "Environnement d'enfance",
+      "familyCrisis": "Crise familiale"
+    },
+    "roles": {
+      "SOLO": "Solo",
+      "NETRUNNER": "Netrunner",
+      "TECH": "Tech",
+      "MEDTECH": "Medtech",
+      "MEDIA": "Media",
+      "EXEC": "Exec",
+      "LAWMAN": "Lawman",
+      "FIXER": "Fixer",
+      "NOMAD": "Nomad",
+      "ROCKERBOY": "Rockerboy"
+    },
+    "actions": {
+      "takeDamage": "Subir des dégâts",
+      "heal": "Soigner",
+      "spendLuck": "Dépenser de la Chance",
+      "restoreLuck": "Restaurer la Chance",
+      "levelUp": "Monter de niveau"
+    }
+  },
+  "campaign": {
+    "title": "Mes campagnes",
+    "create": "Créer une campagne",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "name": "Nom de la campagne",
+    "description": "Description",
+    "gameMaster": "Maître de jeu",
+    "players": "Joueurs",
+    "session": "Session",
+    "currentSession": "Session actuelle"
+  },
+  "journal": {
+    "title": "Journal de campagne",
+    "addEntry": "Ajouter une entrée",
+    "editEntry": "Modifier l'entrée",
+    "deleteEntry": "Supprimer l'entrée",
+    "search": "Rechercher...",
+    "types": {
+      "SESSION": "Session",
+      "QUEST": "Quête",
+      "NPC": "PNJ",
+      "LOCATION": "Lieu",
+      "NOTE": "Note",
+      "LOOT": "Butin"
+    },
+    "fields": {
+      "title": "Titre",
+      "content": "Contenu",
+      "tags": "Tags",
+      "sessionNumber": "Numéro de session",
+      "sessionDate": "Date de session",
+      "npcRole": "Rôle du PNJ",
+      "npcLocation": "Lieu du PNJ",
+      "npcAttitude": "Attitude",
+      "questStatus": "Statut",
+      "questGiver": "Donneur de quête",
+      "questReward": "Récompense",
+      "district": "District",
+      "locationType": "Type de lieu"
+    },
+    "attitudes": {
+      "friendly": "Amical",
+      "neutral": "Neutre",
+      "hostile": "Hostile"
+    },
+    "questStatuses": {
+      "active": "Active",
+      "completed": "Terminée",
+      "failed": "Échouée",
+      "abandoned": "Abandonnée"
+    }
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Opération réussie",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "noResults": "Aucun résultat",
+    "required": "Ce champ est requis"
+  }
+}

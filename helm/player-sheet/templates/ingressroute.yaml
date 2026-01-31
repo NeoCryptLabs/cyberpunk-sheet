@@ -1,0 +1,92 @@
+{{- if .Values.traefik.enabled -}}
+---
+# HTTP to HTTPS redirect middleware
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "player-sheet.fullname" . }}-redirect-https
+  labels:
+    {{- include "player-sheet.labels" . | nindent 4 }}
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+# Strip /api prefix middleware (optional)
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "player-sheet.fullname" . }}-strip-api
+  labels:
+    {{- include "player-sheet.labels" . | nindent 4 }}
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+---
+# HTTP IngressRoute (redirect to HTTPS)
+{{- if .Values.traefik.redirectHttps }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "player-sheet.fullname" . }}-http
+  labels:
+    {{- include "player-sheet.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ .Values.traefik.domain }}`)
+      kind: Rule
+      middlewares:
+        - name: {{ include "player-sheet.fullname" . }}-redirect-https
+      services:
+        - name: {{ include "player-sheet.fullname" . }}-web
+          port: {{ .Values.web.port }}
+{{- end }}
+---
+# HTTPS IngressRoute - Main
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "player-sheet.fullname" . }}-https
+  labels:
+    {{- include "player-sheet.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # GraphQL API route
+    - match: Host(`{{ .Values.traefik.domain }}`) && PathPrefix(`/graphql`)
+      kind: Rule
+      services:
+        - name: {{ include "player-sheet.fullname" . }}-api
+          port: {{ .Values.api.port }}
+      {{- if .Values.traefik.middlewares }}
+      middlewares:
+        {{- range .Values.traefik.middlewares }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+    # Frontend route (catch-all)
+    - match: Host(`{{ .Values.traefik.domain }}`)
+      kind: Rule
+      services:
+        - name: {{ include "player-sheet.fullname" . }}-web
+          port: {{ .Values.web.port }}
+      {{- if .Values.traefik.middlewares }}
+      middlewares:
+        {{- range .Values.traefik.middlewares }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+  {{- if .Values.traefik.tls.enabled }}
+  tls:
+    {{- if .Values.traefik.tls.certResolver }}
+    certResolver: {{ .Values.traefik.tls.certResolver }}
+    {{- end }}
+    {{- if .Values.traefik.tls.secretName }}
+    secretName: {{ .Values.traefik.tls.secretName }}
+    {{- end }}
+  {{- end }}
+{{- end }}

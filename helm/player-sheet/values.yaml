@@ -1,0 +1,99 @@
+# Default values for player-sheet
+
+# Namespace
+namespace: player-sheet
+
+# API Configuration
+api:
+  image: player-sheet/api
+  tag: latest
+  replicas: 1
+  port: 4000
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  env:
+    NODE_ENV: production
+    PORT: "4000"
+    JWT_EXPIRES_IN: "15m"
+    JWT_REFRESH_EXPIRES_IN: "7d"
+
+# Web Configuration
+web:
+  image: player-sheet/web
+  tag: latest
+  replicas: 1
+  port: 3000
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  env:
+    NODE_ENV: production
+    PORT: "3000"
+
+# MongoDB Configuration
+mongodb:
+  enabled: true
+  image: mongo
+  tag: "7.0"
+  auth:
+    rootUser: root
+    rootPassword: ""  # Set via secrets or --set
+    database: player-sheet
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""  # Use default storage class
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+# External MongoDB (when mongodb.enabled=false)
+externalMongodb:
+  uri: ""
+
+# Traefik IngressRoute Configuration
+traefik:
+  enabled: true
+  domain: "player-sheet.local"
+  redirectHttps: true
+  middlewares: []  # Additional middlewares to apply
+  tls:
+    enabled: true
+    certResolver: letsencrypt  # Use existing cert resolver
+    secretName: ""  # Or use existing TLS secret
+
+# Legacy Ingress (disabled by default, use traefik instead)
+ingress:
+  enabled: false
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+  hosts:
+    - host: player-sheet.local
+      paths:
+        - path: /
+          pathType: Prefix
+          service: web
+        - path: /graphql
+          pathType: Prefix
+          service: api
+  tls: []
+
+# Secrets (reference only - actual values set via --set or secrets file)
+secrets:
+  jwtSecret: ""
+  jwtRefreshSecret: ""
+  mongodbRootPassword: ""
