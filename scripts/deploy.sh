@@ -83,8 +83,12 @@ deploy_mongodb() {
         --set api.replicas=0 \
         --set web.replicas=0 \
         --set mongodb.enabled=true \
+        --set traefik.domain="$DOMAIN" \
+        --set traefik.tls.enabled=true \
+        --set traefik.tls.certResolver="$CERT_RESOLVER" \
+        --set secrets.jwtSecret="$JWT_SECRET" \
+        --set secrets.jwtRefreshSecret="$JWT_REFRESH_SECRET" \
         --set secrets.mongodbRootPassword="$MONGODB_ROOT_PASSWORD" \
-        --atomic \
         --timeout 5m \
         --wait
 
@@ -107,7 +111,6 @@ deploy_api() {
         --set api.image="$IMAGE_PREFIX/api" \
         --set api.tag="$VERSION" \
         --set api.replicas=1 \
-        --atomic \
         --timeout 5m \
         --wait
 
@@ -130,7 +133,6 @@ deploy_web() {
         --set web.image="$IMAGE_PREFIX/web" \
         --set web.tag="$VERSION" \
         --set web.replicas=1 \
-        --atomic \
         --timeout 5m \
         --wait
 
