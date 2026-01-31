@@ -49,16 +49,16 @@ const ROLE_ABILITIES: Record<string, string> = {
 };
 
 const STATS = [
-  { key: 'intelligence', label: 'INT' },
-  { key: 'reflexes', label: 'REF' },
-  { key: 'dexterity', label: 'DEX' },
-  { key: 'technology', label: 'TECH' },
-  { key: 'cool', label: 'COOL' },
-  { key: 'willpower', label: 'WILL' },
-  { key: 'luck', label: 'LUCK' },
-  { key: 'move', label: 'MOVE' },
-  { key: 'body', label: 'BODY' },
-  { key: 'empathy', label: 'EMP' },
+  { key: 'intelligence', abbrev: 'INT', name: 'Intelligence' },
+  { key: 'reflexes', abbrev: 'REF', name: 'Réflexes' },
+  { key: 'dexterity', abbrev: 'DEX', name: 'Dextérité' },
+  { key: 'technology', abbrev: 'TECH', name: 'Technique' },
+  { key: 'cool', abbrev: 'COOL', name: 'Sang-froid' },
+  { key: 'willpower', abbrev: 'WILL', name: 'Volonté' },
+  { key: 'luck', abbrev: 'LUCK', name: 'Chance' },
+  { key: 'move', abbrev: 'MOVE', name: 'Mouvement' },
+  { key: 'body', abbrev: 'BODY', name: 'Corps' },
+  { key: 'empathy', abbrev: 'EMP', name: 'Empathie' },
 ] as const;
 
 const weaponSchema = z.object({
@@ -386,10 +386,10 @@ export default function NewCharacterPage() {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-              {STATS.map(({ key, label }) => (
-                <div key={key} className="stat-box p-3">
+              {STATS.map(({ key, abbrev, name }) => (
+                <div key={key} className="stat-box p-3" title={name}>
                   <label className="block text-xs md:text-sm font-medium mb-1 md:mb-2 text-neon-violet-400">
-                    {label}
+                    {abbrev}
                   </label>
                   <input
                     type="number"

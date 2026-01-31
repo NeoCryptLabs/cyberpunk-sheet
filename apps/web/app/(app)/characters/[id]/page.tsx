@@ -26,18 +26,18 @@ import {
   ARMOR_TYPE_LABELS,
 } from '@/lib/cyberpunk-data';
 
-// Stat abbreviation mapping
-const STAT_ABBREV: Record<string, string> = {
-  intelligence: 'INT',
-  reflexes: 'REF',
-  dexterity: 'DEX',
-  technology: 'TECH',
-  cool: 'COOL',
-  willpower: 'WILL',
-  luck: 'LUCK',
-  move: 'MOVE',
-  body: 'BODY',
-  empathy: 'EMP',
+// Stat labels in French
+const STAT_LABELS: Record<string, { abbrev: string; name: string }> = {
+  intelligence: { abbrev: 'INT', name: 'Intelligence' },
+  reflexes: { abbrev: 'REF', name: 'Réflexes' },
+  dexterity: { abbrev: 'DEX', name: 'Dextérité' },
+  technology: { abbrev: 'TECH', name: 'Technique' },
+  cool: { abbrev: 'COOL', name: 'Sang-froid' },
+  willpower: { abbrev: 'WILL', name: 'Volonté' },
+  luck: { abbrev: 'LUCK', name: 'Chance' },
+  move: { abbrev: 'MOVE', name: 'Mouvement' },
+  body: { abbrev: 'BODY', name: 'Corps' },
+  empathy: { abbrev: 'EMP', name: 'Empathie' },
 };
 
 export default function CharacterDetailPage() {
@@ -337,7 +337,7 @@ function StatsTab({ character }: { character: Character }) {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {Object.entries(character.stats).map(([key, value]) => (
             <div key={key} className="stat-box p-3 text-center">
-              <p className="stat-label text-xs mb-1">{STAT_ABBREV[key] || key.toUpperCase()}</p>
+              <p className="stat-label text-xs mb-1">{STAT_LABELS[key]?.abbrev || key.toUpperCase()}</p>
               <p className="stat-value text-xl">{value}</p>
             </div>
           ))}
@@ -442,7 +442,7 @@ function SkillsTab({ character, characterId, updateCharacter }: SkillsTabProps) 
         <div key={stat} className="card card-glow relative">
           <div className="corner-decoration top-left" />
           <div className="corner-decoration top-right" />
-          <h3 className="font-cyber text-sm mb-3 text-neon-cyan-400">{STAT_ABBREV[stat.toLowerCase()] || stat}</h3>
+          <h3 className="font-cyber text-sm mb-3 text-neon-cyan-400">{STAT_LABELS[stat.toLowerCase()]?.name || stat}</h3>
           <div className="space-y-1">
             {skills.map((skill, i) => {
               const isThisUpdating = isUpdating === skill.name;
