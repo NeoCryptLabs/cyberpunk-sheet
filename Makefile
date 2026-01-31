@@ -1,6 +1,10 @@
 # Player Sheet - Kubernetes Deployment Makefile
 # Usage: make [target] [REGISTRY=<registry-url>] [NAMESPACE=<namespace>]
 
+# Load .env file if exists (must be before ifeq checks)
+-include .env
+export
+
 NAMESPACE ?= player-sheet
 RELEASE_NAME ?= player-sheet
 CHART_PATH := ./helm/player-sheet
