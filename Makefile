@@ -63,7 +63,7 @@ build: build-api build-web
 
 build-api:
 	@echo "$(GREEN)Building API image...$(NC)"
-	@if [ -f .env ]; then export $$(grep -v '^#' .env | xargs); fi; \
+	@REGISTRY=$$(grep -E '^REGISTRY=' .env 2>/dev/null | cut -d'=' -f2); \
 	if [ -z "$$REGISTRY" ]; then \
 		echo "Minikube mode - building locally"; \
 		eval $$(minikube docker-env) && docker build -t player-sheet/api:$(VERSION) -t player-sheet/api:latest -f apps/api/Dockerfile .; \
@@ -76,7 +76,7 @@ build-api:
 
 build-web:
 	@echo "$(GREEN)Building Web image...$(NC)"
-	@if [ -f .env ]; then export $$(grep -v '^#' .env | xargs); fi; \
+	@REGISTRY=$$(grep -E '^REGISTRY=' .env 2>/dev/null | cut -d'=' -f2); \
 	if [ -z "$$REGISTRY" ]; then \
 		echo "Minikube mode - building locally"; \
 		eval $$(minikube docker-env) && docker build -t player-sheet/web:$(VERSION) -t player-sheet/web:latest -f apps/web/Dockerfile .; \
