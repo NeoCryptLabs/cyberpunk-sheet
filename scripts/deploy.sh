@@ -52,21 +52,16 @@ deploy_helm() {
         IMAGE_PREFIX="$REGISTRY"
     fi
 
-    # Generate values file from template
-    export NAMESPACE DOMAIN JWT_SECRET JWT_REFRESH_SECRET MONGODB_ROOT_PASSWORD VERSION REGISTRY
-    envsubst < "$CHART_PATH/values.env.yaml" > "$CHART_PATH/values-generated.yaml"
-
     # Helm upgrade/install
     helm upgrade --install "$RELEASE_NAME" "$CHART_PATH" \
         --namespace "$NAMESPACE" \
         --create-namespace \
-        --values "$CHART_PATH/values-generated.yaml" \
         --set api.image="$IMAGE_PREFIX/api" \
         --set api.tag="$VERSION" \
         --set web.image="$IMAGE_PREFIX/web" \
         --set web.tag="$VERSION" \
         --set traefik.domain="$DOMAIN" \
-        --set traefik.tls.enabled="$TLS_ENABLED" \
+        --set traefik.tls.enabled=true \
         --set traefik.tls.certResolver="$CERT_RESOLVER" \
         --set secrets.jwtSecret="$JWT_SECRET" \
         --set secrets.jwtRefreshSecret="$JWT_REFRESH_SECRET" \

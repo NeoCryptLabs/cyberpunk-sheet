@@ -49,38 +49,8 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-API labels
-*/}}
-{{- define "player-sheet.api.labels" -}}
-{{ include "player-sheet.labels" . }}
-app.kubernetes.io/component: api
-{{- end }}
-
-{{- define "player-sheet.api.selectorLabels" -}}
-{{ include "player-sheet.selectorLabels" . }}
-app.kubernetes.io/component: api
-{{- end }}
-
-{{/*
-Web labels
-*/}}
-{{- define "player-sheet.web.labels" -}}
-{{ include "player-sheet.labels" . }}
-app.kubernetes.io/component: web
-{{- end }}
-
-{{- define "player-sheet.web.selectorLabels" -}}
-{{ include "player-sheet.selectorLabels" . }}
-app.kubernetes.io/component: web
-{{- end }}
-
-{{/*
-MongoDB connection string
+MongoDB URI
 */}}
 {{- define "player-sheet.mongodbUri" -}}
-{{- if .Values.mongodb.enabled }}
-mongodb://root:{{ .Values.secrets.mongodbRootPassword }}@{{ include "player-sheet.fullname" . }}-mongodb:27017/{{ .Values.mongodb.auth.database }}?authSource=admin
-{{- else }}
-{{ .Values.externalMongodb.uri }}
-{{- end }}
+mongodb://{{ .Values.mongodb.rootUser }}:{{ .Values.secrets.mongodbRootPassword }}@{{ include "player-sheet.fullname" . }}-mongodb:27017/{{ .Values.mongodb.database }}?authSource=admin
 {{- end }}

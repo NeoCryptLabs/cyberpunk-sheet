@@ -42,7 +42,7 @@ spec:
         - name: {{ include "player-sheet.fullname" . }}-redirect-https
       services:
         - name: {{ include "player-sheet.fullname" . }}-web
-          port: {{ .Values.web.port }}
+          port: {{ .Values.web.port | int }}
 {{- end }}
 ---
 # HTTPS IngressRoute - Main
@@ -61,7 +61,7 @@ spec:
       kind: Rule
       services:
         - name: {{ include "player-sheet.fullname" . }}-api
-          port: {{ .Values.api.port }}
+          port: {{ .Values.api.port | int }}
       {{- if .Values.traefik.middlewares }}
       middlewares:
         {{- range .Values.traefik.middlewares }}
@@ -73,7 +73,7 @@ spec:
       kind: Rule
       services:
         - name: {{ include "player-sheet.fullname" . }}-web
-          port: {{ .Values.web.port }}
+          port: {{ .Values.web.port | int }}
       {{- if .Values.traefik.middlewares }}
       middlewares:
         {{- range .Values.traefik.middlewares }}

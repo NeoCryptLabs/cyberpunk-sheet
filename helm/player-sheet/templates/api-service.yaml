@@ -3,13 +3,15 @@ kind: Service
 metadata:
   name: {{ include "player-sheet.fullname" . }}-api
   labels:
-    {{- include "player-sheet.api.labels" . | nindent 4 }}
+    {{- include "player-sheet.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.api.port }}
+    - port: {{ .Values.api.port | int }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "player-sheet.api.selectorLabels" . | nindent 4 }}
+    {{- include "player-sheet.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: api

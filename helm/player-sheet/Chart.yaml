@@ -4,6 +4,3 @@ description: Cyberpunk Red Campaign Management App
 type: application
 version: 0.1.0
 appVersion: "0.1.0"
-
-# MongoDB is deployed via our own StatefulSet template (templates/mongodb-statefulset.yaml)
-# No external chart dependency needed

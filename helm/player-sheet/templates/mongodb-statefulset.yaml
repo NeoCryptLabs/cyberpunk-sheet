@@ -1,4 +1,4 @@
-{{- if .Values.mongodb.enabled -}}
+{{- if .Values.mongodb.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -29,14 +29,14 @@ spec:
               protocol: TCP
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: {{ .Values.mongodb.auth.rootUser | quote }}
+              value: {{ .Values.mongodb.rootUser | quote }}
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ include "player-sheet.fullname" . }}-secrets
                   key: MONGODB_ROOT_PASSWORD
             - name: MONGO_INITDB_DATABASE
-              value: {{ .Values.mongodb.auth.database | quote }}
+              value: {{ .Values.mongodb.database | quote }}
           {{- if .Values.mongodb.persistence.enabled }}
           volumeMounts:
             - name: data
@@ -74,6 +74,6 @@ spec:
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.mongodb.persistence.size }}
+            storage: {{ .Values.mongodb.persistence.size | quote }}
   {{- end }}
 {{- end }}
