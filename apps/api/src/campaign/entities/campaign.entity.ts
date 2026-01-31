@@ -142,6 +142,14 @@ export class Campaign {
   @Prop({ default: true })
   isActive: boolean;
 
+  @Field({ nullable: true })
+  @Prop()
+  inviteCode?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  inviteCodeExpiry?: Date;
+
   @Field()
   createdAt: Date;
 

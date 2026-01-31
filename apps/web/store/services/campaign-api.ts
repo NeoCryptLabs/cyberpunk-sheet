@@ -33,8 +33,32 @@ export interface Campaign {
   currentSession: number;
   imageUrl?: string;
   isActive: boolean;
+  inviteCode?: string;
+  inviteCodeExpiry?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CampaignCharacter {
+  _id: string;
+  userId: string;
+  handle: string;
+  role: string;
+  stats: {
+    int: number;
+    ref: number;
+    dex: number;
+    tech: number;
+    cool: number;
+    will: number;
+    luck: number;
+    move: number;
+    body: number;
+    emp: number;
+  };
+  hitPoints: { current: number; max: number };
+  humanity: { current: number; max: number };
+  imageUrl?: string;
 }
 
 const CAMPAIGN_FRAGMENT = gql`
@@ -172,6 +196,129 @@ export const campaignApi = api.injectEndpoints({
       transformResponse: (response: { addJournalEntry: Campaign }) => response.addJournalEntry,
       invalidatesTags: (_result, _error, { campaignId }) => [{ type: 'Campaign', id: campaignId }],
     }),
+
+    // ============================================
+    // PLAYER MANAGEMENT ENDPOINTS
+    // ============================================
+
+    generateInviteCode: builder.mutation<string, { campaignId: string }>({
+      query: (input) => ({
+        document: gql`
+          mutation GenerateInviteCode($input: GenerateInviteCodeInput!) {
+            generateInviteCode(input: $input)
+          }
+        `,
+        variables: { input },
+      }),
+      transformResponse: (response: { generateInviteCode: string }) => response.generateInviteCode,
+      invalidatesTags: (_result, _error, { campaignId }) => [{ type: 'Campaign', id: campaignId }],
+    }),
+
+    joinCampaign: builder.mutation<Campaign, { inviteCode: string }>({
+      query: (input) => ({
+        document: gql`
+          ${CAMPAIGN_FRAGMENT}
+          mutation JoinCampaign($input: JoinCampaignInput!) {
+            joinCampaign(input: $input) {
+              ...CampaignFields
+            }
+          }
+        `,
+        variables: { input },
+      }),
+      transformResponse: (response: { joinCampaign: Campaign }) => response.joinCampaign,
+      invalidatesTags: ['Campaign'],
+    }),
+
+    removePlayer: builder.mutation<Campaign, { campaignId: string; userId: string }>({
+      query: (input) => ({
+        document: gql`
+          ${CAMPAIGN_FRAGMENT}
+          mutation RemovePlayer($input: RemovePlayerInput!) {
+            removePlayer(input: $input) {
+              ...CampaignFields
+            }
+          }
+        `,
+        variables: { input },
+      }),
+      transformResponse: (response: { removePlayer: Campaign }) => response.removePlayer,
+      invalidatesTags: (_result, _error, { campaignId }) => [{ type: 'Campaign', id: campaignId }],
+    }),
+
+    linkCharacterToCampaign: builder.mutation<Campaign, { campaignId: string; characterId: string }>({
+      query: (input) => ({
+        document: gql`
+          ${CAMPAIGN_FRAGMENT}
+          mutation LinkCharacterToCampaign($input: LinkCharacterInput!) {
+            linkCharacterToCampaign(input: $input) {
+              ...CampaignFields
+            }
+          }
+        `,
+        variables: { input },
+      }),
+      transformResponse: (response: { linkCharacterToCampaign: Campaign }) =>
+        response.linkCharacterToCampaign,
+      invalidatesTags: (_result, _error, { campaignId }) => [{ type: 'Campaign', id: campaignId }],
+    }),
+
+    unlinkCharacterFromCampaign: builder.mutation<Campaign, { campaignId: string; characterId: string }>({
+      query: (input) => ({
+        document: gql`
+          ${CAMPAIGN_FRAGMENT}
+          mutation UnlinkCharacterFromCampaign($input: UnlinkCharacterInput!) {
+            unlinkCharacterFromCampaign(input: $input) {
+              ...CampaignFields
+            }
+          }
+        `,
+        variables: { input },
+      }),
+      transformResponse: (response: { unlinkCharacterFromCampaign: Campaign }) =>
+        response.unlinkCharacterFromCampaign,
+      invalidatesTags: (_result, _error, { campaignId }) => [{ type: 'Campaign', id: campaignId }],
+    }),
+
+    getCampaignCharacters: builder.query<CampaignCharacter[], string>({
+      query: (campaignId) => ({
+        document: gql`
+          query CampaignCharacters($campaignId: ID!) {
+            campaignCharacters(campaignId: $campaignId) {
+              _id
+              userId
+              handle
+              role
+              stats {
+                int
+                ref
+                dex
+                tech
+                cool
+                will
+                luck
+                move
+                body
+                emp
+              }
+              hitPoints {
+                current
+                max
+              }
+              humanity {
+                current
+                max
+              }
+              imageUrl
+            }
+          }
+        `,
+        variables: { campaignId },
+      }),
+      transformResponse: (response: { campaignCharacters: CampaignCharacter[] }) =>
+        response.campaignCharacters,
+      providesTags: (_result, _error, campaignId) => [{ type: 'Campaign', id: campaignId }],
+    }),
   }),
 });
 
@@ -182,4 +329,10 @@ export const {
   useUpdateCampaignMutation,
   useDeleteCampaignMutation,
   useAddJournalEntryMutation,
+  useGenerateInviteCodeMutation,
+  useJoinCampaignMutation,
+  useRemovePlayerMutation,
+  useLinkCharacterToCampaignMutation,
+  useUnlinkCharacterFromCampaignMutation,
+  useGetCampaignCharactersQuery,
 } = campaignApi;

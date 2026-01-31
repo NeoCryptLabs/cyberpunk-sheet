@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 
@@ -42,7 +42,9 @@ const STAT_ABBREV: Record<string, string> = {
 
 export default function CharacterDetailPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const id = params.id as string;
+  const isReadOnly = searchParams.get('readonly') === 'true';
   const t = useTranslations();
   const router = useRouter();
   const { data: character, isLoading, error } = useGetCharacterQuery(id);
@@ -129,17 +131,24 @@ export default function CharacterDetailPage() {
             <p className="text-cyber-dark-400 text-sm">{character.realName}</p>
           )}
         </div>
-        <div className="flex gap-2 w-full sm:w-auto">
-          <Link href={`/characters/${id}/edit`} className="btn-secondary flex-1 sm:flex-none font-cyber min-h-[44px] flex items-center justify-center">
-            Modifier
-          </Link>
-          <button
-            onClick={() => setShowDeleteConfirm(true)}
-            className="btn-secondary flex-1 sm:flex-none font-cyber min-h-[44px] text-neon-magenta-400 border-neon-magenta-500/30 hover:bg-neon-magenta-500/10"
-          >
-            Supprimer
-          </button>
-        </div>
+        {!isReadOnly && (
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Link href={`/characters/${id}/edit`} className="btn-secondary flex-1 sm:flex-none font-cyber min-h-[44px] flex items-center justify-center">
+              Modifier
+            </Link>
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="btn-secondary flex-1 sm:flex-none font-cyber min-h-[44px] text-neon-magenta-400 border-neon-magenta-500/30 hover:bg-neon-magenta-500/10"
+            >
+              Supprimer
+            </button>
+          </div>
+        )}
+        {isReadOnly && (
+          <div className="px-3 py-1 bg-neon-cyan-500/20 border border-neon-cyan-500/30 rounded-full text-sm font-medium text-neon-cyan-400">
+            Vue MJ (lecture seule)
+          </div>
+        )}
       </div>
 
       {/* Role & Level Badge */}
@@ -173,28 +182,30 @@ export default function CharacterDetailPage() {
               style={{ width: `${hpPercentage}%` }}
             />
           </div>
-          <div className="flex gap-2">
-            <input
-              type="number"
-              min="1"
-              value={damageAmount}
-              onChange={(e) => setDamageAmount(parseInt(e.target.value) || 1)}
-              className="input-field w-16 h-10 text-center"
-            />
-            <button onClick={handleTakeDamage} className="btn-secondary flex-1 text-neon-magenta-400 min-h-[40px]">
-              Dégâts
-            </button>
-            <input
-              type="number"
-              min="1"
-              value={healAmount}
-              onChange={(e) => setHealAmount(parseInt(e.target.value) || 1)}
-              className="input-field w-16 h-10 text-center"
-            />
-            <button onClick={handleHeal} className="btn-secondary flex-1 text-green-400 min-h-[40px]">
-              Soins
-            </button>
-          </div>
+          {!isReadOnly && (
+            <div className="flex gap-2">
+              <input
+                type="number"
+                min="1"
+                value={damageAmount}
+                onChange={(e) => setDamageAmount(parseInt(e.target.value) || 1)}
+                className="input-field w-16 h-10 text-center"
+              />
+              <button onClick={handleTakeDamage} className="btn-secondary flex-1 text-neon-magenta-400 min-h-[40px]">
+                Dégâts
+              </button>
+              <input
+                type="number"
+                min="1"
+                value={healAmount}
+                onChange={(e) => setHealAmount(parseInt(e.target.value) || 1)}
+                className="input-field w-16 h-10 text-center"
+              />
+              <button onClick={handleHeal} className="btn-secondary flex-1 text-green-400 min-h-[40px]">
+                Soins
+              </button>
+            </div>
+          )}
           <div className="mt-3 text-xs text-cyber-dark-500 flex justify-between">
             <span>Blessé grave: {character.seriouslyWoundedThreshold}</span>
             <span>Death Save: {character.deathSave}</span>
@@ -217,22 +228,24 @@ export default function CharacterDetailPage() {
               style={{ width: `${(character.currentLuck / character.stats.luck) * 100}%` }}
             />
           </div>
-          <div className="flex gap-2">
-            <input
-              type="number"
-              min="1"
-              max={character.currentLuck}
-              value={luckAmount}
-              onChange={(e) => setLuckAmount(parseInt(e.target.value) || 1)}
-              className="input-field w-16 h-10 text-center"
-            />
-            <button onClick={handleSpendLuck} className="btn-secondary flex-1 text-neon-cyan-400 min-h-[40px]">
-              Dépenser
-            </button>
-            <button onClick={handleRestoreLuck} className="btn-secondary flex-1 text-green-400 min-h-[40px]">
-              Restaurer
-            </button>
-          </div>
+          {!isReadOnly && (
+            <div className="flex gap-2">
+              <input
+                type="number"
+                min="1"
+                max={character.currentLuck}
+                value={luckAmount}
+                onChange={(e) => setLuckAmount(parseInt(e.target.value) || 1)}
+                className="input-field w-16 h-10 text-center"
+              />
+              <button onClick={handleSpendLuck} className="btn-secondary flex-1 text-neon-cyan-400 min-h-[40px]">
+                Dépenser
+              </button>
+              <button onClick={handleRestoreLuck} className="btn-secondary flex-1 text-green-400 min-h-[40px]">
+                Restaurer
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

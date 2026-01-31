@@ -5,12 +5,14 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 import { useGetMyCampaignsQuery, useCreateCampaignMutation, Campaign } from '@/store/services/campaign-api';
+import { JoinCampaignModal } from '@/components/campaign/join-campaign-modal';
 
 export default function CampaignsPage() {
   const t = useTranslations();
   const { data: campaigns, isLoading, error } = useGetMyCampaignsQuery();
   const [createCampaign, { isLoading: isCreating }] = useCreateCampaignMutation();
   const [showModal, setShowModal] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
   const [newCampaignName, setNewCampaignName] = useState('');
   const [newCampaignDesc, setNewCampaignDesc] = useState('');
 
@@ -38,9 +40,20 @@ export default function CampaignsPage() {
         <h1 className="text-2xl md:text-3xl font-cyber font-bold bg-gradient-to-r from-neon-violet-400 to-neon-magenta-400 bg-clip-text text-transparent">
           {t('campaign.title')}
         </h1>
-        <button onClick={() => setShowModal(true)} className="btn-primary font-cyber min-h-[48px] w-full sm:w-auto">
-          {t('campaign.create')}
-        </button>
+        <div className="flex gap-3 w-full sm:w-auto">
+          <button
+            onClick={() => setShowJoinModal(true)}
+            className="btn-secondary font-cyber min-h-[48px] flex-1 sm:flex-none"
+          >
+            Rejoindre
+          </button>
+          <button
+            onClick={() => setShowModal(true)}
+            className="btn-primary font-cyber min-h-[48px] flex-1 sm:flex-none"
+          >
+            {t('campaign.create')}
+          </button>
+        </div>
       </div>
 
       {isLoading ? (
@@ -140,6 +153,9 @@ export default function CampaignsPage() {
           </div>
         </div>
       )}
+
+      {/* Join Campaign Modal */}
+      <JoinCampaignModal isOpen={showJoinModal} onClose={() => setShowJoinModal(false)} />
     </div>
   );
 }

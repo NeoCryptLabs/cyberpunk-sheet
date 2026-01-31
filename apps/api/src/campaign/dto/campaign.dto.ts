@@ -137,3 +137,54 @@ export class UpdateJournalEntryInput extends PartialType(CreateJournalEntryInput
   @IsString()
   entryId: string;
 }
+
+// ============================================
+// PLAYER MANAGEMENT DTOs
+// ============================================
+
+@InputType()
+export class GenerateInviteCodeInput {
+  @Field(() => ID)
+  @IsString()
+  campaignId: string;
+}
+
+@InputType()
+export class JoinCampaignInput {
+  @Field()
+  @IsString()
+  inviteCode: string;
+}
+
+@InputType()
+export class RemovePlayerInput {
+  @Field(() => ID)
+  @IsString()
+  campaignId: string;
+
+  @Field(() => ID)
+  @IsString()
+  userId: string;
+}
+
+@InputType()
+export class LinkCharacterInput {
+  @Field(() => ID)
+  @IsString()
+  campaignId: string;
+
+  @Field(() => ID)
+  @IsString()
+  characterId: string;
+}
+
+@InputType()
+export class UnlinkCharacterInput {
+  @Field(() => ID)
+  @IsString()
+  campaignId: string;
+
+  @Field(() => ID)
+  @IsString()
+  characterId: string;
+}

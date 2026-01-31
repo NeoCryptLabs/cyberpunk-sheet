@@ -36,6 +36,8 @@ type Campaign {
   description: String
   gameMasterId: String!
   imageUrl: String
+  inviteCode: String
+  inviteCodeExpiry: DateTime
   isActive: Boolean!
   journalEntries: [JournalEntry!]!
   name: String!
@@ -153,6 +155,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input GenerateInviteCodeInput {
+  campaignId: ID!
+}
+
 enum InstallationType {
   CLINIC
   HOSPITAL
@@ -173,6 +179,10 @@ input InventoryItemInput {
   description: String
   name: String!
   quantity: Int!
+}
+
+input JoinCampaignInput {
+  inviteCode: String!
 }
 
 type JournalEntry {
@@ -241,6 +251,11 @@ input LifepathInput {
   valuedPossession: String
 }
 
+input LinkCharacterInput {
+  campaignId: ID!
+  characterId: ID!
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -253,14 +268,29 @@ type Mutation {
   deleteCampaign(id: ID!): Boolean!
   deleteCharacter(id: ID!): Boolean!
   deleteJournalEntry(campaignId: ID!, entryId: ID!): Campaign!
+
+  """Generate an invite code for a campaign (GM only)"""
+  generateInviteCode(input: GenerateInviteCodeInput!): String!
   healCharacter(amount: Int!, id: ID!): Character!
+
+  """Join a campaign using an invite code"""
+  joinCampaign(input: JoinCampaignInput!): Campaign!
+
+  """Link a character to a campaign"""
+  linkCharacterToCampaign(input: LinkCharacterInput!): Campaign!
   login(input: LoginInput!): AuthPayload!
   logout: Boolean!
   refreshTokens(refreshToken: String!): TokenPayload!
   register(input: RegisterInput!): AuthPayload!
+
+  """Remove a player from a campaign (GM only)"""
+  removePlayer(input: RemovePlayerInput!): Campaign!
   restoreLuck(id: ID!): Character!
   spendLuck(amount: Int!, id: ID!): Character!
   takeDamage(damage: Int!, id: ID!): Character!
+
+  """Unlink a character from a campaign"""
+  unlinkCharacterFromCampaign(input: UnlinkCharacterInput!): Campaign!
   updateCampaign(input: UpdateCampaignInput!): Campaign!
   updateCharacter(input: UpdateCharacterInput!): Character!
   updateJournalEntry(input: UpdateJournalEntryInput!): Campaign!
@@ -268,6 +298,9 @@ type Mutation {
 
 type Query {
   campaign(id: ID!): Campaign!
+
+  """Get all characters linked to a campaign (GM only)"""
+  campaignCharacters(campaignId: ID!): [Character!]!
   character(id: ID!): Character!
   journalEntriesByType(campaignId: ID!, type: JournalEntryType!): [JournalEntry!]!
   me: User!
@@ -280,6 +313,11 @@ input RegisterInput {
   email: String!
   password: String!
   username: String!
+}
+
+input RemovePlayerInput {
+  campaignId: ID!
+  userId: ID!
 }
 
 enum Role {
@@ -352,6 +390,11 @@ input StatsInput {
 type TokenPayload {
   accessToken: String!
   refreshToken: String!
+}
+
+input UnlinkCharacterInput {
+  campaignId: ID!
+  characterId: ID!
 }
 
 input UpdateCampaignInput {

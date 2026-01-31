@@ -12,6 +12,12 @@ import {
   Campaign,
   JournalEntry,
 } from '@/store/services/campaign-api';
+import { useAppSelector } from '@/store/hooks';
+import { PlayerManagement } from '@/components/campaign/player-management';
+import { CampaignCharacters } from '@/components/campaign/campaign-characters';
+import { LinkCharacterSelector } from '@/components/campaign/link-character-selector';
+
+type TabType = 'journal' | 'players' | 'characters';
 
 const ENTRY_TYPE_COLORS = {
   SESSION: 'neon-cyan',
@@ -36,6 +42,7 @@ export default function CampaignDetailPage() {
   const id = params.id as string;
   const t = useTranslations();
   const router = useRouter();
+  const { user } = useAppSelector((state) => state.auth);
   const { data: campaign, isLoading, error } = useGetCampaignQuery(id);
   const [deleteCampaign] = useDeleteCampaignMutation();
   const [addJournalEntry, { isLoading: isAddingEntry }] = useAddJournalEntryMutation();
@@ -43,11 +50,14 @@ export default function CampaignDetailPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showAddEntry, setShowAddEntry] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<TabType>('journal');
   const [newEntry, setNewEntry] = useState({
     title: '',
     content: '',
     type: 'NOTE' as JournalEntry['type'],
   });
+
+  const isGameMaster = campaign?.gameMasterId === user?._id;
 
   if (isLoading) {
     return (
@@ -170,6 +180,63 @@ export default function CampaignDetailPage() {
         </div>
       </div>
 
+      {/* Main Tabs */}
+      <div className="flex gap-2 mb-6 border-b border-cyber-dark-700 pb-2">
+        <button
+          onClick={() => setActiveTab('journal')}
+          className={`px-4 py-2 font-cyber text-sm min-h-[44px] rounded-t-lg transition-colors ${
+            activeTab === 'journal'
+              ? 'bg-neon-violet-500/20 text-neon-violet-400 border-b-2 border-neon-violet-500'
+              : 'text-cyber-dark-400 hover:text-white'
+          }`}
+        >
+          Journal
+        </button>
+        <button
+          onClick={() => setActiveTab('players')}
+          className={`px-4 py-2 font-cyber text-sm min-h-[44px] rounded-t-lg transition-colors ${
+            activeTab === 'players'
+              ? 'bg-neon-cyan-500/20 text-neon-cyan-400 border-b-2 border-neon-cyan-500'
+              : 'text-cyber-dark-400 hover:text-white'
+          }`}
+        >
+          Joueurs ({campaign.playerIds.length})
+        </button>
+        {isGameMaster && (
+          <button
+            onClick={() => setActiveTab('characters')}
+            className={`px-4 py-2 font-cyber text-sm min-h-[44px] rounded-t-lg transition-colors ${
+              activeTab === 'characters'
+                ? 'bg-neon-magenta-500/20 text-neon-magenta-400 border-b-2 border-neon-magenta-500'
+                : 'text-cyber-dark-400 hover:text-white'
+            }`}
+          >
+            Personnages ({campaign.characterIds.length})
+          </button>
+        )}
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'players' && (
+        <div className="space-y-6">
+          <PlayerManagement campaign={campaign} currentUserId={user?._id || ''} />
+          {!isGameMaster && (
+            <div className="card bg-cyber-dark-900/50 border-neon-cyan-500/20">
+              <h3 className="text-lg font-cyber font-semibold text-neon-cyan-400 mb-4">
+                Mon personnage
+              </h3>
+              <LinkCharacterSelector campaign={campaign} />
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'characters' && isGameMaster && (
+        <CampaignCharacters campaignId={id} />
+      )}
+
+      {activeTab === 'journal' && (
+        <>
       {/* Filter Tabs */}
       <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
         <button
@@ -229,6 +296,8 @@ export default function CampaignDetailPage() {
             Ajouter une entrée
           </button>
         </div>
+      )}
+        </>
       )}
 
       {/* Add Entry Modal */}
