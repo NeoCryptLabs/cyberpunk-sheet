@@ -28,10 +28,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Player Sheet - Cyberpunk Red',
   description: 'Gestionnaire de campagne Cyberpunk Red',
+  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'Player Sheet',
+  },
+  icons: {
+    icon: '/icons/icon-192.png',
+    apple: '/icons/icon-192.png',
   },
 };
 

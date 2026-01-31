@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { logout } from '@/store/slices/auth-slice';
+import { InstallButton } from '@/components/pwa/install-button';
 
 const navItems = [
   { href: '/dashboard', labelKey: 'nav.home', icon: '🏠', color: 'cyan' },
@@ -148,6 +149,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <p className="text-xs text-cyber-dark-500 truncate">{user.email}</p>
             </div>
           )}
+          <div className="mb-3 md:hidden lg:block">
+            <InstallButton />
+          </div>
           <button
             onClick={handleLogout}
             className="sidebar-item w-full text-cyber-dark-400 hover:text-neon-magenta-400 hover:bg-neon-magenta-500/10 hover:border-neon-magenta-500/30 active:bg-neon-magenta-500/20 min-h-[48px]"
