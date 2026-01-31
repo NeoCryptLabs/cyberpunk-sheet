@@ -1,0 +1,11 @@
+image: player-sheet/web
+tag: latest
+port: 3000
+replicas: 1
+
+# Environment
+apiUrl: ""
+
+# Traefik
+domain: ""
+certResolver: letsencrypt

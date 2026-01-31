@@ -1,0 +1,10 @@
+image: player-sheet/api
+tag: latest
+port: 4000
+replicas: 1
+
+# Environment
+mongodbUri: ""
+jwtSecret: ""
+jwtRefreshSecret: ""
+corsOrigin: ""

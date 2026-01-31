@@ -1,0 +1,6 @@
+image: mongo
+tag: "7.0"
+rootUser: root
+rootPassword: ""
+database: player-sheet
+storageSize: 8Gi

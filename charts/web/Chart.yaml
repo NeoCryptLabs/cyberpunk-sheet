@@ -1,0 +1,5 @@
+apiVersion: v2
+name: web
+description: Player Sheet Web (Next.js)
+type: application
+version: 0.1.0
