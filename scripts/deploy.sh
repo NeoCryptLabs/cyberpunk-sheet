@@ -23,6 +23,8 @@ NAMESPACE="${NAMESPACE:-player-sheet}"
 RELEASE_NAME="${RELEASE_NAME:-player-sheet}"
 DOMAIN="${DOMAIN:-player-sheet.local}"
 REGISTRY="${REGISTRY:-}"
+CERT_RESOLVER="${CERT_RESOLVER:-letsencrypt}"
+TLS_ENABLED="${TLS_ENABLED:-true}"
 
 # Generate secrets if not set
 JWT_SECRET="${JWT_SECRET:-$(openssl rand -hex 32)}"
@@ -64,6 +66,8 @@ deploy_helm() {
         --set web.image="$IMAGE_PREFIX/web" \
         --set web.tag="$VERSION" \
         --set traefik.domain="$DOMAIN" \
+        --set traefik.tls.enabled="$TLS_ENABLED" \
+        --set traefik.tls.certResolver="$CERT_RESOLVER" \
         --set secrets.jwtSecret="$JWT_SECRET" \
         --set secrets.jwtRefreshSecret="$JWT_REFRESH_SECRET" \
         --set secrets.mongodbRootPassword="$MONGODB_ROOT_PASSWORD" \
