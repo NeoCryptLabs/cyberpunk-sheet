@@ -8,6 +8,7 @@ endif
 
 NAMESPACE ?= player-sheet
 REGISTRY ?=
+DOMAIN ?=
 
 # Image prefix
 ifdef REGISTRY
@@ -32,7 +33,8 @@ endif
 build-web:
 	@echo ">>> Building Web..."
 ifdef REGISTRY
-	docker build -t $(IMAGE_PREFIX)/web:latest -f apps/web/Dockerfile .
+	docker build -t $(IMAGE_PREFIX)/web:latest -f apps/web/Dockerfile \
+		--build-arg NEXT_PUBLIC_API_URL=https://$(DOMAIN)/graphql .
 	docker push $(IMAGE_PREFIX)/web:latest
 else
 	docker build -t $(IMAGE_PREFIX)/web:latest -f apps/web/Dockerfile .

@@ -17,8 +17,12 @@ RUN pnpm install --frozen-lockfile --filter @player-sheet/web
 COPY apps/web ./apps/web
 COPY tsconfig.base.json ./
 
+# Build args for NEXT_PUBLIC_* variables (must be at build time)
+ARG NEXT_PUBLIC_API_URL=http://localhost:4000/graphql
+
 # Build
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN pnpm --filter @player-sheet/web build
 
 # Production stage
