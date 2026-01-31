@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   useGetCampaignCharactersQuery,
   CampaignCharacter,
@@ -65,12 +66,14 @@ function CharacterCard({ character }: { character: CampaignCharacter }) {
 
       <div className="flex items-start gap-4">
         {/* Avatar */}
-        <div className="w-16 h-16 rounded-lg bg-cyber-dark-800 border border-cyber-dark-600 overflow-hidden flex-shrink-0">
+        <div className="w-16 h-16 rounded-lg bg-cyber-dark-800 border border-cyber-dark-600 overflow-hidden flex-shrink-0 relative">
           {character.imageUrl ? (
-            <img
+            <Image
               src={character.imageUrl}
               alt={character.handle}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-2xl">

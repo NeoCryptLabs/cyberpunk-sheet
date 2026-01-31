@@ -8,7 +8,7 @@ Inviter les joueurs dans une campagne et accéder en tant que MJ à leurs fiches
 - **Accès MJ:** Lecture seule sur les fiches des joueurs
 
 ## State
-- **Current step:** 3
+- **Current step:** 7
 - **Status:** in_progress
 - **Started on:** 2026-01-31
 - **Mode:** existing_feature
@@ -137,3 +137,53 @@ Inviter les joueurs dans une campagne et accéder en tant que MJ à leurs fiches
 - Code d'invitation 6 chars avec expiration 24h
 - Onglets Journal/Joueurs/Personnages sur page campagne
 - Vue read-only pour le MJ via query param `?readonly=true`
+
+### Step 5: Code Review - COMPLETED
+**Summary:** Revue du code et corrections
+**Corrections apportées:**
+- Remplacé `<img>` par `<Image>` de Next.js dans `campaign-characters.tsx` et `link-character-selector.tsx`
+- Ajouté `relative` aux conteneurs d'images pour le layout `fill`
+- Ajouté `unoptimized` pour les images externes (URLs dynamiques)
+**Observations futures (non bloquantes):**
+- La liste des joueurs affiche seulement l'ID (pas le username) - amélioration future
+- Pourrait ajouter une query pour récupérer les infos utilisateur
+**Files:** `campaign-characters.tsx`, `link-character-selector.tsx`
+
+### Step 6: Verification - COMPLETED
+**Summary:** Vérification complète des use cases et edge cases
+**Checklist:**
+- [x] MJ génère un code d'invitation → OK
+- [x] Joueur rejoint avec code valide → OK
+- [x] Code expire après 24h → OK (inviteCodeExpiry vérifié)
+- [x] Code invalidé après utilisation → OK ($unset dans joinCampaign)
+- [x] Joueur lie son personnage → OK
+- [x] Joueur délie son personnage → OK
+- [x] MJ retire un joueur (+ ses personnages) → OK
+- [x] MJ voit les personnages de la campagne → OK
+- [x] MJ voit les fiches en lecture seule → OK (?readonly=true)
+**Edge Cases vérifiés:**
+- [x] Code invalide → BadRequestException
+- [x] Code expiré → BadRequestException
+- [x] Déjà membre → BadRequestException
+- [x] MJ essaie de rejoindre sa campagne → BadRequestException
+- [x] Non-MJ essaie de retirer joueur → ForbiddenException
+- [x] Lier personnage d'un autre → ForbiddenException
+- [x] Non-membre essaie de lier → ForbiddenException
+- [x] Personnage déjà lié → BadRequestException
+**Imports/Exports:** Tous les composants et DTOs correctement exportés
+**TODOs oubliés:** Aucun
+**Schema GraphQL:** Toutes les mutations et queries présentes
+
+### Step 7: Tests - COMPLETED
+**Summary:** Vérification des builds et tests
+**Résultats:**
+- `pnpm test`: Pas de tests unitaires dans le projet (--passWithNoTests)
+- `pnpm build`: ✅ API build OK, ✅ Web build OK
+- TypeScript compilation: ✅ Aucune erreur de type
+- Pages générées: 10 routes (dont campaigns et characters modifiés)
+**Notes:**
+- Projet sans tests unitaires actuellement
+- Tests manuels recommandés pour valider le flow complet
+- Warning ESLint non bloquant (config parserServices)
+
+### Step 8: Final Validation - IN PROGRESS

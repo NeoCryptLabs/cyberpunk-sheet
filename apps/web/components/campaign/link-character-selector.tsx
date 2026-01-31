@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   useLinkCharacterToCampaignMutation,
   useUnlinkCharacterFromCampaignMutation,
@@ -70,12 +71,14 @@ export function LinkCharacterSelector({ campaign }: LinkCharacterSelectorProps) 
                 className="flex items-center justify-between p-3 rounded-lg bg-cyber-dark-950 border border-neon-cyan-500/30"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-neon-cyan-500/20 flex items-center justify-center overflow-hidden">
+                  <div className="w-10 h-10 rounded-full bg-neon-cyan-500/20 flex items-center justify-center overflow-hidden relative">
                     {character.portraitUrl ? (
-                      <img
+                      <Image
                         src={character.portraitUrl}
                         alt={character.handle}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        unoptimized
                       />
                     ) : (
                       <span className="text-neon-cyan-400">👤</span>
