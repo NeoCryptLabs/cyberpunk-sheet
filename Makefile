@@ -1,10 +1,6 @@
 # Player Sheet - Kubernetes Deployment Makefile
 # Usage: make [target] [REGISTRY=<registry-url>] [NAMESPACE=<namespace>]
 
-# Load .env file if exists (must be before ifeq checks)
--include .env
-export
-
 NAMESPACE ?= player-sheet
 RELEASE_NAME ?= player-sheet
 CHART_PATH := ./helm/player-sheet
@@ -60,34 +56,36 @@ dev:
 	cd apps/web && pnpm dev
 
 # ============================================================
-# Build
+# Build (loads .env via shell)
 # ============================================================
 
 build: build-api build-web
 
 build-api:
 	@echo "$(GREEN)Building API image...$(NC)"
-ifeq ($(REGISTRY),)
-	@echo "Minikube mode - building locally"
-	eval $$(minikube docker-env) && docker build -t player-sheet/api:$(VERSION) -t player-sheet/api:latest -f apps/api/Dockerfile .
-else
-	@echo "Registry mode - pushing to $(REGISTRY)"
-	docker build -t $(REGISTRY)/api:$(VERSION) -t $(REGISTRY)/api:latest -f apps/api/Dockerfile .
-	docker push $(REGISTRY)/api:$(VERSION)
-	docker push $(REGISTRY)/api:latest
-endif
+	@if [ -f .env ]; then export $$(grep -v '^#' .env | xargs); fi; \
+	if [ -z "$$REGISTRY" ]; then \
+		echo "Minikube mode - building locally"; \
+		eval $$(minikube docker-env) && docker build -t player-sheet/api:$(VERSION) -t player-sheet/api:latest -f apps/api/Dockerfile .; \
+	else \
+		echo "Registry mode - pushing to $$REGISTRY"; \
+		docker build -t $$REGISTRY/api:$(VERSION) -t $$REGISTRY/api:latest -f apps/api/Dockerfile .; \
+		docker push $$REGISTRY/api:$(VERSION); \
+		docker push $$REGISTRY/api:latest; \
+	fi
 
 build-web:
 	@echo "$(GREEN)Building Web image...$(NC)"
-ifeq ($(REGISTRY),)
-	@echo "Minikube mode - building locally"
-	eval $$(minikube docker-env) && docker build -t player-sheet/web:$(VERSION) -t player-sheet/web:latest -f apps/web/Dockerfile .
-else
-	@echo "Registry mode - pushing to $(REGISTRY)"
-	docker build -t $(REGISTRY)/web:$(VERSION) -t $(REGISTRY)/web:latest -f apps/web/Dockerfile .
-	docker push $(REGISTRY)/web:$(VERSION)
-	docker push $(REGISTRY)/web:latest
-endif
+	@if [ -f .env ]; then export $$(grep -v '^#' .env | xargs); fi; \
+	if [ -z "$$REGISTRY" ]; then \
+		echo "Minikube mode - building locally"; \
+		eval $$(minikube docker-env) && docker build -t player-sheet/web:$(VERSION) -t player-sheet/web:latest -f apps/web/Dockerfile .; \
+	else \
+		echo "Registry mode - pushing to $$REGISTRY"; \
+		docker build -t $$REGISTRY/web:$(VERSION) -t $$REGISTRY/web:latest -f apps/web/Dockerfile .; \
+		docker push $$REGISTRY/web:$(VERSION); \
+		docker push $$REGISTRY/web:latest; \
+	fi
 
 # ============================================================
 # Deploy
